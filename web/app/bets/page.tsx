@@ -92,13 +92,13 @@ export default function BetsPage() {
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-2xl font-bold text-chart-5">2,000 FT</p>
+              <p className="text-2xl font-bold text-chart-5">2,000 INTI</p>
               <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
                 Apostado
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-2xl font-bold text-chart-5">3,200 FT</p>
+              <p className="text-2xl font-bold text-chart-5">3,200 INTI</p>
               <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
                 Ganado
               </p>

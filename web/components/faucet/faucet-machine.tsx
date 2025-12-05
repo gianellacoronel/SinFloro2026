@@ -41,7 +41,7 @@ export function FaucetMachine() {
               <p className="text-lg font-bold text-chart-5 uppercase">
                 Transferencia Exitosa
               </p>
-              <p className="text-3xl font-bold text-foreground">+1,000 FT</p>
+              <p className="text-3xl font-bold text-foreground">+1,000 INTI</p>
             </>
           ) : isMinting ? (
             <>
@@ -70,7 +70,7 @@ export function FaucetMachine() {
           Cantidad a Recibir
         </p>
         <p className="text-4xl font-bold text-accent-foreground mt-1">
-          1,000 FT
+          1,000 INTI
         </p>
       </div>
 

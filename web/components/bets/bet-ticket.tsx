@@ -67,7 +67,7 @@ export function BetTicket({ bet }: { bet: Bet }) {
             <p className="text-[10px] font-bold uppercase text-muted-foreground">
               Monto
             </p>
-            <p className="font-bold text-card-foreground">{bet.amount} FT</p>
+            <p className="font-bold text-card-foreground">{bet.amount} INTI</p>
           </div>
           <div className="bg-muted px-3 py-2 border-2 border-border">
             <p className="text-[10px] font-bold uppercase text-muted-foreground">
@@ -82,7 +82,7 @@ export function BetTicket({ bet }: { bet: Bet }) {
             Pago Potencial
           </p>
           <p className="text-xl font-bold text-accent-foreground">
-            {bet.potentialPayout} FT
+            {bet.potentialPayout} INTI
           </p>
         </div>
 

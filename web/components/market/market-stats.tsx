@@ -19,7 +19,7 @@ export function MarketStats({ stats }: MarketStatsProps) {
               {stats.totalPool}
             </p>
             <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
-              Pool Total (FT)
+              Pool Total (INTI)
             </p>
           </div>
           <div className="space-y-1">
