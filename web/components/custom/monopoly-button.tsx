@@ -1,6 +1,6 @@
 import type * as React from "react";
 import { cn } from "@/lib/utils";
-import { Button, type buttonVariants } from "@/components/ui/button";
+import { Button, type buttonVariants } from "../ui/button";
 import type { VariantProps } from "class-variance-authority";
 
 type ButtonProps = React.ComponentProps<"button"> &

@@ -1,6 +1,6 @@
 import { Wallet } from "lucide-react";
 import Link from "next/link";
-import { MonopolyButton } from "@/components/custom/monopoly-button";
+import { MonopolyButton } from "../custom/monopoly-button";
 
 export function Header() {
   return (

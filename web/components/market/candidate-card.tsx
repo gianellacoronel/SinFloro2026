@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TrendingUp } from "lucide-react";
-import { MonopolyButton } from "@/components/custom/monopoly-button";
+import { MonopolyButton } from "../custom/monopoly-button";
 
 interface CandidateCardProps {
   name: string;

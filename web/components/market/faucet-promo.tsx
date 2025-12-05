@@ -3,7 +3,7 @@ import {
   MonopolyCardContent,
 } from "@/components/custom/monopoly-card";
 import { Coins, Droplets } from "lucide-react";
-import { MonopolyButton } from "@/components/custom/monopoly-button";
+import { MonopolyButton } from "../custom/monopoly-button";
 import Link from "next/link";
 
 export function FaucetPromo() {
@@ -19,7 +19,7 @@ export function FaucetPromo() {
               Faucet de Prueba
             </h3>
             <p className="text-xs text-accent-foreground/70">
-              Obtén FloroTokens gratis para apostar
+              Obtén Intis gratis para apostar
             </p>
           </div>
           <MonopolyButton

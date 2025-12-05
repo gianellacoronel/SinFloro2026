@@ -1,6 +1,6 @@
 import { Clock, LucideIcon, Ticket, Trophy, XCircle } from "lucide-react";
-import { MonopolyBadge } from "@/components/custom/monopoly-badge";
 import { cn } from "@/lib/utils";
+import { MonopolyBadge } from "../custom/monopoly-badge";
 
 type BetStatus = "open" | "won" | "lost";
 

@@ -1,7 +1,4 @@
-import {
-  MonopolyCard,
-  MonopolyCardContent,
-} from "@/components/custom/monopoly-card";
+import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
 import { Sparkles } from "lucide-react";
 
 export function HeroBanner() {

@@ -2,7 +2,6 @@ import { CandidateCard } from "@/components/market/candidate-card";
 import { FaucetPromo } from "@/components/market/faucet-promo";
 import { HeroBanner } from "@/components/market/hero-banner";
 import { MarketStats } from "@/components/market/market-stats";
-import Image from "next/image";
 
 const candidates = [
   {
