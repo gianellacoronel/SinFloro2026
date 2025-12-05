@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Oswald } from "next/font/google";
+import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/header";
+import { DesktopNav } from "@/components/layout/desktop-nav";
+import { MobileNav } from "@/components/layout/mobile-nav";
+import { Analytics } from "@vercel/analytics/next";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -28,8 +32,14 @@ export default function RootLayout({
         className={`${oswald.variable} ${inter.variable} font-sans antialiased`}
       >
         <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
+          <Header />
+          <div className="hidden md:block max-w-6xl mx-auto px-4 py-4">
+            <DesktopNav />
+          </div>
           {children}
+          <MobileNav />
         </div>
+        <Analytics />
       </body>
     </html>
   );
