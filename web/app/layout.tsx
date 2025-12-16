@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sin Floro 2026 | Prediction Market",
+  title: "Sin Floro 2026",
   description:
     "Web3 Prediction Market for Peruvian Elections 2026 - No Floro, Just Data",
 };
