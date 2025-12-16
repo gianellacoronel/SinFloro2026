@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { DesktopNav } from "@/components/layout/desktop-nav";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Analytics } from "@vercel/analytics/next";
+import { ConvexClientProvider } from "./ConvexClientProvider";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -36,7 +37,7 @@ export default function RootLayout({
           <div className="hidden md:block max-w-6xl mx-auto px-4 py-4">
             <DesktopNav />
           </div>
-          {children}
+          <ConvexClientProvider>{children}</ConvexClientProvider>
           <MobileNav />
         </div>
         <Analytics />
