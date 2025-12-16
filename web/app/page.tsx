@@ -1,6 +1,6 @@
-import { CandidateCard } from "@/components/market/candidate-card";
 import { FaucetPromo } from "@/components/market/faucet-promo";
 import { HeroBanner } from "@/components/market/hero-banner";
+import { ListCandidates } from "@/components/market/list-candidates";
 import { MarketStats } from "@/components/market/market-stats";
 
 const candidates = [
@@ -55,11 +55,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {candidates.map((candidate) => (
-          <CandidateCard key={candidate.name} {...candidate} />
-        ))}
-      </div>
+      <ListCandidates />
 
       <MarketStats stats={marketStats} />
     </main>
