@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { FaucetPromo } from "@/components/market/faucet-promo";
 import { HeroBanner } from "@/components/market/hero-banner";
 import { ListCandidates } from "@/components/market/list-candidates";
@@ -38,6 +39,12 @@ const marketStats = {
   bettors: "1,247",
   daysRemaining: "89",
   volume24h: "+12.5%",
+};
+
+export const metadata: Metadata = {
+  other: {
+    "base:app_id": "69420bb6d77c069a945bdf82",
+  },
 };
 
 export default function Home() {
