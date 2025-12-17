@@ -16,6 +16,31 @@ export async function GET() {
       payload: process.env.FARCASTER_PAYLOAD,
       signature: process.env.FARCASTER_SIGNATURE,
     },
+    frame: withValidProperties({
+      name: "Sin Floro 2026",
+      version: "1",
+      iconUrl: "https://sin-floro-2026.vercel.app/app-icon.png",
+      homeUrl: "https://sin-floro-2026.vercel.app",
+      imageUrl: "https://sin-floro-2026.vercel.app/hero-image.png",
+      buttonTitle: "Put Money Where Your Vote Is",
+      splashImageUrl: "https://sin-floro-2026.vercel.app/app-icon.png",
+      splashBackgroundColor: "#ffe3aa",
+      webhookUrl: "https://sin-floro-2026.vercel.app/api/webhook",
+      subtitle: "No Hype. Just Data.",
+      description:
+        "A decentralized prediction market for the Peru 2026 Presidential Elections. Polls can be biased, but the blockchain doesn't lie.",
+      screenshotUrls: [
+        "https://sin-floro-2026.vercel.app/screenshots/shot-01.png",
+      ],
+      primaryCategory: "entertainment",
+      tags: ["voting", "social", "bet"],
+      heroImageUrl: "https://sin-floro-2026.vercel.app/hero-image.png",
+      tagline: "Sin Floro, only the truth",
+      ogTitle: "Sin Floro 2026 - Just Data",
+      ogDescription:
+        "Stop guessing with polls and put your money where your vote is for the Peru 2026 elections.",
+      ogImageUrl: "https://sin-floro-2026.vercel.app/hero-image.png",
+    }),
     miniapp: {
       version: "1",
       name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
