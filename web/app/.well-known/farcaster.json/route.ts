@@ -39,6 +39,9 @@ export async function GET() {
       ogDescription: process.env.NEXT_PUBLIC_APP_OG_DESCRIPTION,
       ogImageUrl: process.env.NEXT_PUBLIC_APP_OG_IMAGE,
       noindex: false,
+      castShareUrl: URL,
+      buttonTitle: process.env.NEXT_PUBLIC_BUTTON_PRIMARY,
+      imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
     },
   });
 }
