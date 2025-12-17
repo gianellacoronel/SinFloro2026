@@ -1,5 +1,3 @@
-"use client";
-
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
@@ -8,8 +6,7 @@ import { DesktopNav } from "@/components/layout/desktop-nav";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
-import { useEffect } from "react";
-import { sdk } from "@farcaster/miniapp-sdk";
+import ClientMiniApp from "./client-miniapp";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -46,15 +43,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    sdk.actions.ready();
-  }, []);
-
   return (
     <html lang="es">
       <body
         className={`${oswald.variable} ${inter.variable} font-sans antialiased`}
       >
+        <ClientMiniApp />
         <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
           <Header />
           <div className="hidden md:block max-w-6xl mx-auto px-4 py-4">
