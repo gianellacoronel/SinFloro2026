@@ -1,3 +1,5 @@
+"use client";
+
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
@@ -6,6 +8,8 @@ import { DesktopNav } from "@/components/layout/desktop-nav";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+import { useEffect } from "react";
+import { sdk } from "@farcaster/miniapp-sdk";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -16,17 +20,15 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
-  title: "Sin Floro 2026",
-  description:
-    "Web3 Prediction Market for Peruvian Elections 2026 - No Floro, Just Data",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useEffect(() => {
+    sdk.actions.ready();
+  }, []);
+
   return (
     <html lang="es">
       <body
