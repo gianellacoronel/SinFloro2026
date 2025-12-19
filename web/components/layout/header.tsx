@@ -1,8 +1,42 @@
+"use client";
+
 import { Wallet } from "lucide-react";
 import Link from "next/link";
 import { MonopolyButton } from "../custom/monopoly-button";
+import { useState } from "react";
+import sdk from "@farcaster/miniapp-sdk";
+import { Button } from "../ui/button";
 
 export function Header() {
+  const [token, setToken] = useState<string | null>(null);
+  const [userData, setUserData] = useState<{ fid: number } | null>(null);
+
+  async function signIn() {
+    try {
+      const { token } = await sdk.quickAuth.getToken();
+      setToken(token);
+
+      const response = await sdk.quickAuth.fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await response.json();
+      setUserData(data);
+    } catch (error) {
+      console.error("Authentication failed: ", error);
+    }
+  }
+
+  function signOut() {
+    setToken(null);
+    setUserData(null);
+  }
+
   return (
     <header className="sticky top-0 z-40 bg-card border-b-4 border-border">
       <div className="flex items-center justify-between px-4 py-3">
@@ -24,11 +58,21 @@ export function Header() {
             </p>
           </div>
         </Link>
-
-        <MonopolyButton variant="secondary" monopolySize="sm">
-          <Wallet className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">Conectar</span>
-        </MonopolyButton>
+        {!token ? (
+          <MonopolyButton
+            variant="secondary"
+            monopolySize="sm"
+            onClick={signIn}
+          >
+            <Wallet className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Conectar</span>
+          </MonopolyButton>
+        ) : (
+          <div>
+            <p>Authenticated as FID: {userData?.fid}</p>
+            <Button onClick={signOut}>Sign Out</Button>
+          </div>
+        )}
       </div>
     </header>
   );
