@@ -17,7 +17,7 @@ export async function GET() {
       signature: process.env.FARCASTER_SIGNATURE,
     },
     miniapp: {
-      version: "1",
+      version: "1.0.1",
       name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
       homeUrl: URL,
       iconUrl: process.env.NEXT_PUBLIC_APP_ICON,
