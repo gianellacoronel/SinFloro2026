@@ -75,7 +75,7 @@ function MonopolyCardContent({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  return <CardContent className={cn("p-4", className)} {...props} />;
+  return <CardContent className={className} {...props} />;
 }
 
 function MonopolyCardFooter({

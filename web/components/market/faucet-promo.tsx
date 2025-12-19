@@ -9,7 +9,7 @@ import Link from "next/link";
 export function FaucetPromo() {
   return (
     <MonopolyCard variant="accent">
-      <MonopolyCardContent className="p-4">
+      <MonopolyCardContent>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-card border-2 border-border flex items-center justify-center shrink-0">
             <Droplets className="w-6 h-6 text-chart-3" />
