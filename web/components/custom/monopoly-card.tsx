@@ -41,7 +41,7 @@ function MonopolyCardHeader({
 }: React.ComponentProps<"div">) {
   return (
     <CardHeader
-      className={cn("border-b-4 border-border p-4", className)}
+      className={cn("border-b-4 border-border", className)}
       {...props}
     />
   );
