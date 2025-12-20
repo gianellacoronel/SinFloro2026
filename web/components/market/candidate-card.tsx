@@ -32,7 +32,7 @@ export function CandidateCard({
       {/* Title deed style header */}
       <div className="px-4 py-2 text-center border-b-2 border-border bg-muted">
         <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          Título de Propiedad
+          {party}
         </p>
       </div>
 
@@ -58,7 +58,6 @@ export function CandidateCard({
           <h3 className="text-xl font-bold uppercase tracking-wide text-card-foreground">
             {name}
           </h3>
-          <p className="text-sm text-muted-foreground font-medium">{party}</p>
         </div>
 
         {/* Stats - Monopoly rent style */}
