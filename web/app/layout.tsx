@@ -19,6 +19,8 @@ const inter = Inter({
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    title: "Sin Floro 2026",
+    description: "Predict the 2026 winner",
     other: {
       "fc:miniapp": JSON.stringify({
         version: "next",
