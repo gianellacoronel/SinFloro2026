@@ -4,36 +4,6 @@ import { HeroBanner } from "@/components/market/hero-banner";
 import { ListCandidates } from "@/components/market/list-candidates";
 import { MarketStats } from "@/components/market/market-stats";
 
-const candidates = [
-  {
-    name: "Keiko Fujimori",
-    party: "Fuerza Popular",
-    partyColorClass: "bg-chart-1",
-    odds: 2.5,
-    totalPool: "125,000 INTI",
-    probability: 40,
-    imageQuery: "peruvian woman politician portrait formal",
-  },
-  {
-    name: "Antauro Humala",
-    party: "UPP",
-    partyColorClass: "bg-chart-2",
-    odds: 4.2,
-    totalPool: "78,500 INTI",
-    probability: 24,
-    imageQuery: "peruvian man politician military style portrait",
-  },
-  {
-    name: "Hernando de Soto",
-    party: "Avanza País",
-    partyColorClass: "bg-chart-3",
-    odds: 5.8,
-    totalPool: "52,300 INTI",
-    probability: 17,
-    imageQuery: "peruvian economist man portrait formal suit",
-  },
-];
-
 const marketStats = {
   totalPool: "255,800",
   bettors: "1,247",
