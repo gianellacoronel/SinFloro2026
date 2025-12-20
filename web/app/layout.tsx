@@ -7,6 +7,8 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import ClientMiniApp from "./client-miniapp";
+import "@coinbase/onchainkit/styles.css";
+import MyOnchainKitProvider from "./MyOnchainKitProvider";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -46,21 +48,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body
-        className={`${oswald.variable} ${inter.variable} font-sans antialiased`}
-      >
-        <ClientMiniApp />
-        <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
-          <Header />
-          <div className="hidden md:block max-w-6xl mx-auto px-4 py-4">
-            <DesktopNav />
+    <MyOnchainKitProvider>
+      <html lang="es">
+        <body
+          className={`${oswald.variable} ${inter.variable} font-sans antialiased`}
+        >
+          <ClientMiniApp />
+          <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
+            <Header />
+            <div className="hidden md:block max-w-6xl mx-auto px-4 py-4">
+              <DesktopNav />
+            </div>
+            <ConvexClientProvider>{children}</ConvexClientProvider>
+            <MobileNav />
           </div>
-          <ConvexClientProvider>{children}</ConvexClientProvider>
-          <MobileNav />
-        </div>
-        <Analytics />
-      </body>
-    </html>
+          <Analytics />
+        </body>
+      </html>
+    </MyOnchainKitProvider>
   );
 }
