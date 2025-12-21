@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import ClientMiniApp from "./client-miniapp";
 import "@coinbase/onchainkit/styles.css";
-import MyOnchainKitProvider from "./MyOnchainKitProvider";
+import Providers from "./Providers";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -48,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <MyOnchainKitProvider>
+    <Providers>
       <html lang="es">
         <body
           className={`${oswald.variable} ${inter.variable} font-sans antialiased`}
@@ -65,6 +65,6 @@ export default function RootLayout({
           <Analytics />
         </body>
       </html>
-    </MyOnchainKitProvider>
+    </Providers>
   );
 }

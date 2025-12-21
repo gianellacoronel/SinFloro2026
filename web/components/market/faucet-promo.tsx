@@ -11,9 +11,6 @@ export function FaucetPromo() {
     <MonopolyCard variant="accent">
       <MonopolyCardContent>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-card border-2 border-border flex items-center justify-center shrink-0">
-            <Droplets className="w-6 h-6 text-chart-3" />
-          </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-sm font-bold uppercase tracking-wide text-accent-foreground">
               Faucet de Prueba

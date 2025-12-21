@@ -1,41 +1,50 @@
 "use client";
-
-import { Wallet } from "lucide-react";
 import Link from "next/link";
+import {
+  ConnectWallet,
+  Wallet,
+  WalletDropdown,
+  WalletDropdownLink,
+  WalletDropdownDisconnect,
+} from "@coinbase/onchainkit/wallet";
+import {
+  Address,
+  Avatar,
+  Name,
+  Identity,
+  EthBalance,
+} from "@coinbase/onchainkit/identity";
 import { MonopolyButton } from "../custom/monopoly-button";
-import { useState } from "react";
-import sdk from "@farcaster/miniapp-sdk";
-import { Button } from "../ui/button";
 
 export function Header() {
-  const [token, setToken] = useState<string | null>(null);
-  const [userData, setUserData] = useState<{ fid: number } | null>(null);
+  // const [token, setToken] = useState<string | null>(null);
+  // const [userData, setUserData] = useState<{ fid: number } | null>(null);
 
-  async function signIn() {
-    try {
-      const { token } = await sdk.quickAuth.getToken();
-      setToken(token);
+  // async function signIn() {
+  //   try {
+  //     const { token } = await sdk.quickAuth.getToken();
+  //     setToken(token);
 
-      const response = await sdk.quickAuth.fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+  //     const response = await sdk.quickAuth.fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/auth`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       },
+  //     );
 
-      const data = await response.json();
-      setUserData(data);
-    } catch (error) {
-      console.error("Authentication failed: ", error);
-    }
-  }
+  //     const data = await response.json();
+  //     setUserData(data);
+  //   } catch (error) {
+  //     console.error("Authentication failed: ", error);
+  //   }
+  // }
 
-  function signOut() {
-    setToken(null);
-    setUserData(null);
-  }
+  // function signOut() {
+  //   setToken(null);
+  //   setUserData(null);
+  // }
 
   return (
     <header className="sticky top-0 z-40 bg-card border-b-4 border-border">
@@ -58,7 +67,7 @@ export function Header() {
             </p>
           </div>
         </Link>
-        {!token ? (
+        {/*{!token ? (
           <MonopolyButton
             variant="secondary"
             monopolySize="sm"
@@ -72,7 +81,42 @@ export function Header() {
             <p>Authenticated as FID: {userData?.fid}</p>
             <Button onClick={signOut}>Sign Out</Button>
           </div>
-        )}
+        )}*/}
+        <Wallet>
+          <ConnectWallet
+            render={({ label, onClick, status, isLoading }) => (
+              <MonopolyButton
+                variant="secondary"
+                monopolySize="sm"
+                onClick={onClick}
+                disabled={isLoading}
+              >
+                <span className="hidden sm:inline">
+                  {status === "disconnected" ? "Comienza ahora" : label}
+                </span>
+              </MonopolyButton>
+            )}
+          />
+          <WalletDropdown>
+            <Identity
+              className="px-4 pt-3 pb-2 hover:bg-blue-200"
+              hasCopyAddressOnClick
+            >
+              <Avatar />
+              <Name />
+              <Address />
+              <EthBalance />
+            </Identity>
+            <WalletDropdownLink
+              className="hover:bg-blue-200"
+              icon="wallet"
+              href="https://keys.coinbase.com"
+            >
+              Wallet
+            </WalletDropdownLink>
+            <WalletDropdownDisconnect className="hover:bg-blue-200" />
+          </WalletDropdown>
+        </Wallet>
       </div>
     </header>
   );
