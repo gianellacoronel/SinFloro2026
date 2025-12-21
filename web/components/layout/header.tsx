@@ -82,7 +82,29 @@ export function Header() {
             <Button onClick={signOut}>Sign Out</Button>
           </div>
         )}*/}
+
         <Wallet>
+          <ConnectWallet className="bg-primary text-primary-foreground font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none transition-all">
+            <Avatar className="h-6 w-6" />
+            <Name />
+          </ConnectWallet>
+
+          {/* Este Dropdown aparece cuando ya estás conectado */}
+          <WalletDropdown>
+            <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
+              <Avatar />
+              <Name />
+              <Address />
+              <EthBalance />
+            </Identity>
+            <WalletDropdownLink icon="wallet" href="https://keys.coinbase.com">
+              Wallet
+            </WalletDropdownLink>
+            <WalletDropdownDisconnect />
+          </WalletDropdown>
+        </Wallet>
+
+        {/*<Wallet>
           <ConnectWallet
             render={({ label, onClick, status, isLoading }) => (
               <MonopolyButton
@@ -116,7 +138,7 @@ export function Header() {
             </WalletDropdownLink>
             <WalletDropdownDisconnect className="hover:bg-blue-200" />
           </WalletDropdown>
-        </Wallet>
+        </Wallet>*/}
       </div>
     </header>
   );
