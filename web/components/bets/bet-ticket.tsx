@@ -24,7 +24,11 @@ const statusConfig: Record<
     icon: Clock,
     bgClass: "bg-chart-4 text-chart-4-foreground",
   },
-  won: { label: "Ganada", icon: Trophy, bgClass: "bg-chart-5 text-background" },
+  won: {
+    label: "Ganada",
+    icon: Trophy,
+    bgClass: "bg-successful text-background",
+  },
   lost: {
     label: "Perdida",
     icon: XCircle,
