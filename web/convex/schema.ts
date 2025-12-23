@@ -14,14 +14,15 @@ export default defineSchema({
   }).index("by_contract_id", ["contractId"]),
 
   bets: defineTable({
-    userId: v.id("users"),
     walletAddress: v.string(),
     candidateId: v.id("candidates"),
     contractCandidateId: v.number(),
     amount: v.number(),
     tokenSymbol: v.string(),
     txHash: v.string(),
-    status: v.string(),
+    status: v.union(v.literal("open"), v.literal("won"), v.literal("lost")),
+    odds: v.number(),
+    potentialPayout: v.number(),
   })
     .index("by_wallet", ["walletAddress"])
     .index("by_candidate", ["candidateId"]),

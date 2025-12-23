@@ -5,14 +5,14 @@ import { MonopolyBadge } from "../custom/monopoly-badge";
 type BetStatus = "open" | "won" | "lost";
 
 interface Bet {
-  id: string;
+  _id: string;
   candidate: string;
   party: string;
   amount: number;
   odds: number;
   potentialPayout: number;
   status: BetStatus;
-  date: string;
+  _creationTime: number;
 }
 
 const statusConfig: Record<
@@ -47,11 +47,11 @@ export function BetTicket({ bet }: { bet: Bet }) {
         <div className="flex items-center gap-2">
           <Ticket className="w-4 h-4 text-muted-foreground" />
           <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            {bet.id}
+            ID
           </span>
         </div>
         <span className="text-xs font-bold text-muted-foreground">
-          {bet.date}
+          {bet._creationTime}
         </span>
       </div>
 

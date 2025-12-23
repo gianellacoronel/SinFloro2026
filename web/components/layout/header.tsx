@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import {
   ConnectWallet,
@@ -14,38 +15,8 @@ import {
   Identity,
   EthBalance,
 } from "@coinbase/onchainkit/identity";
-import { MonopolyButton } from "../custom/monopoly-button";
 
 export function Header() {
-  // const [token, setToken] = useState<string | null>(null);
-  // const [userData, setUserData] = useState<{ fid: number } | null>(null);
-
-  // async function signIn() {
-  //   try {
-  //     const { token } = await sdk.quickAuth.getToken();
-  //     setToken(token);
-
-  //     const response = await sdk.quickAuth.fetch(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/auth`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       },
-  //     );
-
-  //     const data = await response.json();
-  //     setUserData(data);
-  //   } catch (error) {
-  //     console.error("Authentication failed: ", error);
-  //   }
-  // }
-
-  // function signOut() {
-  //   setToken(null);
-  //   setUserData(null);
-  // }
-
   return (
     <header className="sticky top-0 z-40 bg-card border-b-4 border-border">
       <div className="flex items-center justify-between px-4 py-3">
@@ -67,24 +38,9 @@ export function Header() {
             </p>
           </div>
         </Link>
-        {/*{!token ? (
-          <MonopolyButton
-            variant="secondary"
-            monopolySize="sm"
-            onClick={signIn}
-          >
-            <Wallet className="w-4 h-4 mr-2" />
-            <span className="hidden sm:inline">Conectar</span>
-          </MonopolyButton>
-        ) : (
-          <div>
-            <p>Authenticated as FID: {userData?.fid}</p>
-            <Button onClick={signOut}>Sign Out</Button>
-          </div>
-        )}*/}
-
         <Wallet>
           <ConnectWallet
+            onConnect={() => console.log("hola")}
             disconnectedLabel="Comienza ahora"
             className="bg-primary text-primary-foreground font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none transition-all"
           >
@@ -106,42 +62,6 @@ export function Header() {
             <WalletDropdownDisconnect />
           </WalletDropdown>
         </Wallet>
-
-        {/*<Wallet>
-          <ConnectWallet
-            render={({ label, onClick, status, isLoading }) => (
-              <MonopolyButton
-                variant="secondary"
-                monopolySize="sm"
-                onClick={onClick}
-                disabled={isLoading}
-              >
-                <span className="hidden sm:inline">
-                  {status === "disconnected" ? "Comienza ahora" : label}
-                </span>
-              </MonopolyButton>
-            )}
-          />
-          <WalletDropdown>
-            <Identity
-              className="px-4 pt-3 pb-2 hover:bg-blue-200"
-              hasCopyAddressOnClick
-            >
-              <Avatar />
-              <Name />
-              <Address />
-              <EthBalance />
-            </Identity>
-            <WalletDropdownLink
-              className="hover:bg-blue-200"
-              icon="wallet"
-              href="https://keys.coinbase.com"
-            >
-              Wallet
-            </WalletDropdownLink>
-            <WalletDropdownDisconnect className="hover:bg-blue-200" />
-          </WalletDropdown>
-        </Wallet>*/}
       </div>
     </header>
   );

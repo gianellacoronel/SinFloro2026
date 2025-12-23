@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as bets from "../bets.js";
 import type * as candidates from "../candidates.js";
 import type * as files from "../files.js";
 
@@ -18,6 +19,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  bets: typeof bets;
   candidates: typeof candidates;
   files: typeof files;
 }>;
