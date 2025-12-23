@@ -13,6 +13,19 @@ export default defineSchema({
     totalPool: v.string(),
   }).index("by_contract_id", ["contractId"]),
 
+  bets: defineTable({
+    userId: v.id("users"),
+    walletAddress: v.string(),
+    candidateId: v.id("candidates"),
+    contractCandidateId: v.number(),
+    amount: v.number(),
+    tokenSymbol: v.string(),
+    txHash: v.string(),
+    status: v.string(),
+  })
+    .index("by_wallet", ["walletAddress"])
+    .index("by_candidate", ["candidateId"]),
+
   users: defineTable({
     walletAddress: v.string(),
     nickname: v.optional(v.string()),
