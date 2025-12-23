@@ -12,7 +12,14 @@ export function ListBets() {
   const { address, isConnected } = useAccount();
   const bets = useQuery(api.bets.getBets, { walletAddress: address ?? "0x" });
 
-  if (!address && !isConnected) return <div>Please connect your wallet</div>;
+  if (!address && !isConnected)
+    return (
+      <EmptyComponent
+        title="Cuenta no conectada"
+        description="Por favor, conéctate para comenzar."
+        icon={<TicketMinus />}
+      />
+    );
 
   if (!bets || bets.length === 0) {
     return (
