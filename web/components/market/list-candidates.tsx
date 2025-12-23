@@ -14,7 +14,8 @@ export function ListCandidates(props: {
       {candidates?.map((candidate) => {
         return (
           <CandidateCard
-            key={candidate.name}
+            key={candidate._id}
+            id={candidate._id}
             name={candidate.name}
             party={candidate.party}
             imageQuery={candidate.photoUrl}

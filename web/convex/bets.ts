@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const getBets = query({
   args: { walletAddress: v.string() },
@@ -24,5 +24,24 @@ export const getBets = query({
     );
 
     return betsWithCandidates;
+  },
+});
+
+export const createBet = mutation({
+  args: { walletAddress: v.string(), candidateId: v.id("candidates") },
+  handler: async (ctx, args) => {
+    const betId = await ctx.db.insert("bets", {
+      walletAddress: args.walletAddress,
+      candidateId: args.candidateId,
+      amount: 100,
+      odds: 0,
+      potentialPayout: 0,
+      status: "open",
+      contractCandidateId: 0,
+      tokenSymbol: "INTI",
+      txHash: "",
+    });
+
+    return betId;
   },
 });

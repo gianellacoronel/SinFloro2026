@@ -1,23 +1,5 @@
-import { BetTicket } from "@/components/bets/bet-ticket";
 import { ListBets } from "@/components/bets/list-bets";
-import {
-  MonopolyCard,
-  MonopolyCardContent,
-} from "@/components/custom/monopoly-card";
 import { Ticket } from "lucide-react";
-
-type BetStatus = "open" | "won" | "lost";
-
-interface Bet {
-  id: string;
-  candidate: string;
-  party: string;
-  amount: number;
-  odds: number;
-  potentialPayout: number;
-  status: BetStatus;
-  date: string;
-}
 
 // const mockBets: Bet[] = [
 //   {

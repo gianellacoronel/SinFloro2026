@@ -1,9 +1,16 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TrendingUp } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAccount } from "wagmi";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface CandidateCardProps {
+  id: string;
   name: string;
   party: string;
   partyColorClass: string;
@@ -14,6 +21,7 @@ interface CandidateCardProps {
 }
 
 export function CandidateCard({
+  id,
   name,
   party,
   partyColorClass,
@@ -22,6 +30,15 @@ export function CandidateCard({
   probability,
   imageQuery,
 }: CandidateCardProps) {
+  const { address } = useAccount();
+  const createBet = useMutation(api.bets.createBet);
+  const handleClick = () => {
+    createBet({
+      walletAddress: address || "",
+      candidateId: id as Id<"candidates">,
+    });
+  };
+
   return (
     <div className="bg-card border-4 border-border shadow-[6px_6px_0px_0px] shadow-border overflow-hidden transition-all active:shadow-[3px_3px_0px_0px] active:translate-x-0.5 active:translate-y-0.5">
       {/* Party color header strip */}
@@ -92,7 +109,11 @@ export function CandidateCard({
         </div>
 
         {/* Bet button */}
-        <MonopolyButton className="w-full" monopolySize="lg">
+        <MonopolyButton
+          className="w-full"
+          monopolySize="lg"
+          onClick={handleClick}
+        >
           Apostar
         </MonopolyButton>
       </div>
