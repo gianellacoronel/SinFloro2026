@@ -41,7 +41,7 @@ export function CandidateCard({
         {/* Candidate photo using Shadcn Avatar */}
         <Avatar className="mx-auto w-24 h-24 border-4 border-border rounded-none">
           <AvatarImage
-            src={`${process.env.NEXT_PUBLIC_URL}/${imageQuery}`}
+            src={`${process.env.NEXT_PUBLIC_URL}/candidates/${imageQuery}`}
             alt={name}
             className="object-cover"
           />
