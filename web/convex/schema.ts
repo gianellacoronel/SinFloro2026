@@ -9,7 +9,6 @@ export default defineSchema({
     photoUrl: v.string(),
     color: v.string(),
     contractId: v.number(),
-
     currentOdds: v.number(),
     totalPool: v.string(),
   }).index("by_contract_id", ["contractId"]),

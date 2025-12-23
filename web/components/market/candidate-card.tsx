@@ -1,7 +1,10 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TrendingUp } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 interface CandidateCardProps {
   name: string;
@@ -22,6 +25,9 @@ export function CandidateCard({
   probability,
   imageQuery,
 }: CandidateCardProps) {
+  const imageUrl = useQuery(api.files.getImageUrl, {
+    storageId: imageQuery as any,
+  });
   return (
     <div className="bg-card border-4 border-border shadow-[6px_6px_0px_0px] shadow-border overflow-hidden transition-all active:shadow-[3px_3px_0px_0px] active:translate-x-0.5 active:translate-y-0.5">
       {/* Party color header strip */}
@@ -41,7 +47,7 @@ export function CandidateCard({
         {/* Candidate photo using Shadcn Avatar */}
         <Avatar className="mx-auto w-24 h-24 border-4 border-border rounded-none">
           <AvatarImage
-            src={`/.jpg?height=96&width=96&query=${imageQuery}`}
+            src={imageUrl ?? ""}
             alt={name}
             className="object-cover"
           />
