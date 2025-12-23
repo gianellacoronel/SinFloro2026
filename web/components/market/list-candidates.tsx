@@ -1,10 +1,13 @@
 "use client";
-import { useQuery } from "convex/react";
+
+import { Preloaded, usePreloadedQuery } from "convex/react";
 import { CandidateCard } from "./candidate-card";
 import { api } from "@/convex/_generated/api";
 
-export function ListCandidates() {
-  const candidates = useQuery(api.candidates.getCandidates);
+export function ListCandidates(props: {
+  preloadedCandidates: Preloaded<typeof api.candidates.getCandidates>;
+}) {
+  const candidates = usePreloadedQuery(props.preloadedCandidates);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

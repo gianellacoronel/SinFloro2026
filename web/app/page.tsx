@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { FaucetPromo } from "@/components/market/faucet-promo";
 import { HeroBanner } from "@/components/market/hero-banner";
-import { ListCandidates } from "@/components/market/list-candidates";
 import { MarketStats } from "@/components/market/market-stats";
+import { ListCandidatesWrapper } from "@/components/market/list-candidates-wrapper";
 
 const marketStats = {
   totalPool: "255,800",
@@ -32,7 +32,7 @@ export default function Home() {
         </p>
       </div>
 
-      <ListCandidates />
+      <ListCandidatesWrapper />
 
       <MarketStats stats={marketStats} />
     </main>
