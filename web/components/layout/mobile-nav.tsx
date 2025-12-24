@@ -1,14 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Droplets, Home, Ticket, User } from "lucide-react";
+import { Home, Ticket, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
   { id: "/", label: "Market", icon: Home },
   { id: "/bets", label: "Mis Apuestas", icon: Ticket },
-  { id: "/faucet", label: "Faucet", icon: Droplets },
+  // { id: "/faucet", label: "Faucet", icon: Droplets },
   { id: "/profile", label: "Perfil", icon: User },
 ];
 
