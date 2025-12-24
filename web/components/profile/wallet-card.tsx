@@ -1,24 +1,22 @@
 "use client";
 
-import { Check, Copy, Wallet, CreditCard } from "lucide-react";
-import {
-  MonopolyCard,
-  MonopolyCardContent,
-  MonopolyCardHeader,
-} from "../custom/monopoly-card";
+import { Check, Copy } from "lucide-react";
+import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAccount } from "wagmi";
 
-interface WalletCardProps {
-  address: string;
-  shortAddress: string;
-}
-
-export function WalletCard({ address, shortAddress }: WalletCardProps) {
+export function WalletCard() {
   const [copied, setCopied] = useState(false);
+  const { address } = useAccount();
+
+  const truncateWord = (word: string) => {
+    if (word.length <= 8) return word; // Don't truncate if word is too short
+    return `${word.slice(0, 6)}...${word.slice(-4)}`;
+  };
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(address);
+    await navigator.clipboard.writeText(address ?? "");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -29,7 +27,7 @@ export function WalletCard({ address, shortAddress }: WalletCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             <code className="text-lg font-bold tracking-wider">
-              {shortAddress}
+              {truncateWord(address ?? "")}
             </code>
             <button
               onClick={handleCopy}
