@@ -2,6 +2,7 @@
 
 import {
   useAccount,
+  useReadContract,
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
@@ -57,6 +58,17 @@ export function AdminButtons() {
     });
   };
 
+  const {
+    data: candidatesContract,
+    error,
+    isPending,
+  } = useReadContract({
+    address: SIN_FLORO_ADDRESS,
+    abi: SIN_FLORO_ABI,
+    functionName: "candidates",
+    args: [BigInt(1)],
+  });
+
   useEffect(() => {
     if (isConfirmed) {
       console.log("Candidate added successfully");
@@ -88,6 +100,14 @@ export function AdminButtons() {
           ¡Transacción completada! Hash: {hash?.slice(0, 6)}...{hash?.slice(-4)}
         </p>
       )}
+      {/*{!isPending && (
+        <div>
+          <ul>
+            <li>candidateId: {candidatesContract[0]}</li>
+            <li>totalBetAmount: {candidatesContract[1]}</li>
+          </ul>
+        </div>
+      )}*/}
     </div>
   );
 }

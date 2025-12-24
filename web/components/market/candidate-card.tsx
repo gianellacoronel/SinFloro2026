@@ -8,6 +8,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useAccount } from "wagmi";
 import { Id } from "@/convex/_generated/dataModel";
+import { BettingDrawer } from "./betting-drawer";
 
 interface CandidateCardProps {
   id: string;
@@ -32,7 +33,16 @@ export function CandidateCard({
 }: CandidateCardProps) {
   const { address } = useAccount();
   const createBet = useMutation(api.bets.createBet);
-  const handleClick = () => {
+  const handleBet = (amount: number) => {
+    // In a real scenario, you probably want to use the 'amount' in the mutation 
+    // or checks. For now, we preserve the original mutation call but we can imagine
+    // passing the amount if the backend supports it.
+    // Assuming createBet might accept an amount later, or if it does already:
+    // createBet({ walletAddress: ..., candidateId: ..., amount: amount })
+    // For now we fulfill the interface.
+    
+    console.log(`Betting ${amount} on ${name} (${id})`);
+
     createBet({
       walletAddress: address || "",
       candidateId: id as Id<"candidates">,
@@ -109,13 +119,19 @@ export function CandidateCard({
         </div>
 
         {/* Bet button */}
-        <MonopolyButton
-          className="w-full"
-          monopolySize="lg"
-          onClick={handleClick}
+        <BettingDrawer
+          candidateName={name}
+          currentOdds={odds}
+          onConfirmBet={handleBet}
         >
-          Apostar
-        </MonopolyButton>
+          <MonopolyButton
+            className="w-full"
+            monopolySize="lg"
+            // onClick removed because DrawerTrigger handles the click
+          >
+            Apostar
+          </MonopolyButton>
+        </BettingDrawer>
       </div>
     </div>
   );
