@@ -3,6 +3,7 @@ import {
   MonopolyCard,
   MonopolyCardContent,
 } from "@/components/custom/monopoly-card";
+import { AdminButtons } from "@/components/profile/admin-buttons";
 import { StatCard } from "@/components/profile/stat-card";
 import { WalletCard } from "@/components/profile/wallet-card";
 import { Coins, LogOut, Target, Trophy, User } from "lucide-react";
@@ -88,6 +89,8 @@ export default function ProfilePage() {
         <LogOut className="w-5 h-5 mr-3" />
         Desconectar Wallet
       </MonopolyButton>
+
+      <AdminButtons />
     </main>
   );
 }

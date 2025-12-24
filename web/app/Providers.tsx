@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { base } from "viem/chains";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { baseSepolia } from "wagmi/chains";
-import { coinbaseWallet } from "wagmi/connectors";
+import { coinbaseWallet, metaMask } from "wagmi/connectors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const wagmiConfig = createConfig({
@@ -14,6 +14,7 @@ const wagmiConfig = createConfig({
     coinbaseWallet({
       appName: "Sin Floro 2026",
     }),
+    metaMask(),
   ],
   ssr: true,
   transports: {
