@@ -24,10 +24,10 @@ export function WalletCard({ address, shortAddress }: WalletCardProps) {
 
   return (
     <MonopolyCard>
-      <MonopolyCardHeader className="bg-primary">
+      <MonopolyCardHeader>
         <div className="flex items-center gap-2">
-          <Wallet className="w-5 h-5 text-primary-foreground" />
-          <span className="text-sm font-bold uppercase tracking-wide text-primary-foreground">
+          <Wallet className="w-5 h-5" />
+          <span className="text-sm font-bold uppercase tracking-wide">
             Wallet Conectada
           </span>
         </div>

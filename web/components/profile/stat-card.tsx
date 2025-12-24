@@ -16,9 +16,8 @@ export function StatCard({
 }: StatCardProps) {
   return (
     <MonopolyCard className="active:shadow-[2px_2px_0px_0px] active:translate-x-0.5 active:translate-y-0.5 transition-all">
-      <MonopolyCardContent className="p-4">
+      <MonopolyCardContent>
         <div className="flex items-center gap-2 mb-2">
-          <Icon className="w-5 h-5 text-chart-3" />
           <span className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
             {label}
           </span>

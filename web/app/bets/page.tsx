@@ -49,7 +49,6 @@ export default function BetsPage() {
     <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div className="border-b-4 border-border pb-2">
         <div className="flex items-center gap-3">
-          <Ticket className="w-6 h-6 text-primary" />
           <h1 className="text-2xl font-bold uppercase tracking-wide text-foreground">
             Mis Apuestas
           </h1>
