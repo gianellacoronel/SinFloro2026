@@ -40,7 +40,7 @@ export default function ProfilePage() {
       </section>
 
       {/* Stats Grid - "Scorecard" style */}
-      <section className="space-y-4">
+      {/*<section className="space-y-4">
         <div className="flex items-center gap-2">
           <div className="h-1 w-6 bg-foreground" />
           <h2 className="text-sm font-black uppercase tracking-widest text-foreground/80">
@@ -70,7 +70,7 @@ export default function ProfilePage() {
             value={`#${mockUserStats.rank}`}
           />
         </div>
-      </section>
+      </section>*/}
 
       {/* Balance & Actions */}
       <div className="space-y-6 pt-4">
@@ -78,12 +78,7 @@ export default function ProfilePage() {
           variant="accent"
           className="border-4 shadow-[6px_6px_0px_0px] shadow-border"
         >
-          <MonopolyCardContent className="text-center space-y-2 py-8 relative">
-            {/* "Stamp" decoration */}
-            <div className="absolute top-2 right-4 rotate-12 opacity-20 border-4 border-black p-1 rounded-sm">
-              <div className="text-[10px] font-black uppercase">Auditado</div>
-            </div>
-
+          <MonopolyCardContent className="text-center space-y-2  relative">
             <p className="text-xs font-black uppercase tracking-widest text-accent-foreground/60">
               Fondos Disponibles
             </p>

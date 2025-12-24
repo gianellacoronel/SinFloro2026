@@ -32,7 +32,7 @@ export function WalletCard() {
             <button
               onClick={handleCopy}
               className={cn(
-                "rounded-md transition-all active:scale-95 active:translate-y-1",
+                "p-2 rounded-md transition-all active:scale-95 active:translate-y-1",
                 copied
                   ? "bg-green-500 text-black"
                   : "bg-white text-black hover:bg-gray-200",
