@@ -45,10 +45,6 @@ export function AdminButtons() {
       });
     } catch (error) {
       console.error("Error:", error);
-      if (error.code === 4902) {
-        console.log("Red no agregada a MetaMask");
-        // Aquí puedes agregar la red
-      }
     }
   };
 
