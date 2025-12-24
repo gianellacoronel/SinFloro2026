@@ -28,12 +28,16 @@ export const getBets = query({
 });
 
 export const createBet = mutation({
-  args: { walletAddress: v.string(), candidateId: v.id("candidates") },
+  args: {
+    walletAddress: v.string(),
+    candidateId: v.id("candidates"),
+    amount: v.number(),
+  },
   handler: async (ctx, args) => {
     const betId = await ctx.db.insert("bets", {
       walletAddress: args.walletAddress,
       candidateId: args.candidateId,
-      amount: 100,
+      amount: args.amount,
       odds: 0,
       potentialPayout: 0,
       status: "open",

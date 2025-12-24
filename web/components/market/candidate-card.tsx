@@ -32,6 +32,7 @@ export function CandidateCard({
   imageQuery,
 }: CandidateCardProps) {
   const { address } = useAccount();
+
   const createBet = useMutation(api.bets.createBet);
   const handleBet = (amount: number) => {
     // In a real scenario, you probably want to use the 'amount' in the mutation
@@ -46,6 +47,7 @@ export function CandidateCard({
     createBet({
       walletAddress: address || "",
       candidateId: id as Id<"candidates">,
+      amount,
     });
   };
 

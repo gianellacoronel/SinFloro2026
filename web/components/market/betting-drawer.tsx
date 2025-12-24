@@ -84,7 +84,7 @@ export function BettingDrawer({
                 size="icon"
                 className="h-8 w-8 shrink-0 rounded-full"
                 onClick={() => adjustAmount(-10)}
-                disabled={amount <= 0}
+                disabled={amount <= 10}
               >
                 <Minus className="h-4 w-4" />
                 <span className="sr-only">Decrease</span>
