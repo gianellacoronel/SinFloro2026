@@ -89,7 +89,7 @@ export function FaucetMachine() {
           <MonopolyButton
             onClick={handleMint}
             disabled={isMinting}
-            className="w-full py-5 bg-chart-5 text-background hover:bg-chart-5/90 shadow-[6px_6px_0px_0px]"
+            className="w-full py-5 bg-successful text-background hover:bg-successful/90 shadow-[6px_6px_0px_0px]"
           >
             <Coins className="w-6 h-6 mr-3" />
             {isMinting ? "Mintando..." : "Mint 1000 Intis"}
