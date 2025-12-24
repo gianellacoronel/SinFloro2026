@@ -16,6 +16,7 @@ export function ListCandidates(props: {
           <CandidateCard
             key={candidate._id}
             id={candidate._id}
+            contractId={candidate.contractId}
             name={candidate.name}
             party={candidate.party}
             imageQuery={candidate.photoUrl}

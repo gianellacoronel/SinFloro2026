@@ -6,12 +6,21 @@ import { TrendingUp } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useAccount } from "wagmi";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { Id } from "@/convex/_generated/dataModel";
 import { BettingDrawer } from "./betting-drawer";
+import { toast } from "sonner";
+import { parseUnits } from "viem";
+import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
+import { useEffect, useState } from "react";
 
 interface CandidateCardProps {
   id: string;
+  contractId: number;
   name: string;
   party: string;
   partyColorClass: string;
@@ -23,6 +32,7 @@ interface CandidateCardProps {
 
 export function CandidateCard({
   id,
+  contractId,
   name,
   party,
   partyColorClass,
@@ -32,23 +42,46 @@ export function CandidateCard({
   imageQuery,
 }: CandidateCardProps) {
   const { address } = useAccount();
+  const { data: hash, isPending, writeContract } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
+  const [pendingBet, setPendingBet] = useState<{
+    candidateContractId: number;
+    amount: number;
+  } | null>(null);
 
   const createBet = useMutation(api.bets.createBet);
+
+  useEffect(() => {
+    if (isSuccess && hash && pendingBet) {
+      createBet({
+        walletAddress: address || "",
+        candidateId: id as Id<"candidates">,
+        amount: pendingBet.amount,
+      });
+
+      void toast.success("Apuesta realizada con éxito");
+    }
+  }, [isSuccess, hash, pendingBet]);
+
   const handleBet = (amount: number) => {
-    // In a real scenario, you probably want to use the 'amount' in the mutation
-    // or checks. For now, we preserve the original mutation call but we can imagine
-    // passing the amount if the backend supports it.
-    // Assuming createBet might accept an amount later, or if it does already:
-    // createBet({ walletAddress: ..., candidateId: ..., amount: amount })
-    // For now we fulfill the interface.
+    try {
+      const amountInWei = parseUnits(amount.toString(), 18);
+      setPendingBet({
+        candidateContractId: contractId,
+        amount,
+      });
 
-    console.log(`Betting ${amount} on ${name} (${id})`);
-
-    createBet({
-      walletAddress: address || "",
-      candidateId: id as Id<"candidates">,
-      amount,
-    });
+      writeContract({
+        address: SIN_FLORO_ADDRESS,
+        abi: SIN_FLORO_ABI,
+        functionName: "placeBet",
+        args: [BigInt(contractId), amountInWei],
+      });
+    } catch (error) {
+      console.error("Error al preparar la transacción:", error);
+    }
   };
 
   return (
@@ -126,11 +159,7 @@ export function CandidateCard({
           currentOdds={odds}
           onConfirmBet={handleBet}
         >
-          <MonopolyButton
-            className="w-full"
-            monopolySize="lg"
-            // onClick removed because DrawerTrigger handles the click
-          >
+          <MonopolyButton className="w-full" monopolySize="lg">
             Apostar
           </MonopolyButton>
         </BettingDrawer>
