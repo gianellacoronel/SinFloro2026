@@ -9,7 +9,6 @@ interface StatCardProps {
 }
 
 export function StatCard({
-  icon: Icon,
   label,
   value,
   valueClass = "text-foreground",

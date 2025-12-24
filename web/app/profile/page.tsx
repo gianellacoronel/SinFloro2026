@@ -1,22 +1,16 @@
-import { MonopolyButton } from "@/components/custom/monopoly-button";
-import {
-  MonopolyCard,
-  MonopolyCardContent,
-} from "@/components/custom/monopoly-card";
 import { AdminButtons } from "@/components/profile/admin-buttons";
-import { StatCard } from "@/components/profile/stat-card";
+import { BalanceCard } from "@/components/profile/balance-card";
 import { WalletCard } from "@/components/profile/wallet-card";
-import { Coins, LogOut, Target, Trophy, User } from "lucide-react";
 
-const mockUserStats = {
-  walletAddress: "0x1234...5678",
-  fullAddress: "0x1234567890abcdef1234567890abcdef12345678",
-  totalBets: 47,
-  winRate: 68,
-  totalWon: 12500,
-  totalStaked: 8200,
-  rank: 23,
-};
+// const mockUserStats = {
+//   walletAddress: "0x1234...5678",
+//   fullAddress: "0x1234567890abcdef1234567890abcdef12345678",
+//   totalBets: 47,
+//   winRate: 68,
+//   totalWon: 12500,
+//   totalStaked: 8200,
+//   rank: 23,
+// };
 
 export default function ProfilePage() {
   return (
@@ -49,23 +43,19 @@ export default function ProfilePage() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <StatCard
-            icon={Target}
             label="Total Apuestas"
             value={mockUserStats.totalBets}
           />
           <StatCard
-            icon={Trophy}
             label="Win Rate"
             value={`${mockUserStats.winRate}%`}
             valueClass="text-chart-5 drop-shadow-sm"
           />
           <StatCard
-            icon={Coins}
             label="Total Ganado"
             value={`${mockUserStats.totalWon.toLocaleString()} FT`}
           />
           <StatCard
-            icon={Trophy}
             label="Ranking"
             value={`#${mockUserStats.rank}`}
           />
@@ -73,44 +63,9 @@ export default function ProfilePage() {
       </section>*/}
 
       {/* Balance & Actions */}
-      <div className="space-y-6 pt-4">
-        <MonopolyCard
-          variant="accent"
-          className="border-4 shadow-[6px_6px_0px_0px] shadow-border"
-        >
-          <MonopolyCardContent className="text-center space-y-2  relative">
-            <p className="text-xs font-black uppercase tracking-widest text-accent-foreground/60">
-              Fondos Disponibles
-            </p>
-            <p className="text-5xl font-black text-accent-foreground tracking-tighter drop-shadow-sm">
-              {(
-                mockUserStats.totalWon -
-                mockUserStats.totalStaked +
-                1000
-              ).toLocaleString()}{" "}
-              <span className="text-2xl">FT</span>
-            </p>
-            <div className="pt-2">
-              <span className="inline-block px-4 py-1.5 bg-black/5 text-xs font-black uppercase tracking-wide rounded-md text-accent-foreground/80">
-                En Juego: {mockUserStats.totalStaked.toLocaleString()} FT
-              </span>
-            </div>
-          </MonopolyCardContent>
-        </MonopolyCard>
+      <BalanceCard />
 
-        <div className="space-y-3">
-          <MonopolyButton
-            variant="destructive"
-            className="w-full h-14 text-lg font-black uppercase"
-            monopolySize="lg"
-          >
-            <LogOut className="w-6 h-6 mr-3" />
-            Retirarse del Juego
-          </MonopolyButton>
-
-          <AdminButtons />
-        </div>
-      </div>
+      <AdminButtons />
     </main>
   );
 }

@@ -2,7 +2,6 @@
 
 import {
   useAccount,
-  useReadContract,
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
@@ -57,17 +56,6 @@ export function AdminButtons() {
       args: [],
     });
   };
-
-  const {
-    data: candidatesContract,
-    error,
-    isPending,
-  } = useReadContract({
-    address: SIN_FLORO_ADDRESS,
-    abi: SIN_FLORO_ABI,
-    functionName: "candidates",
-    args: [BigInt(1)],
-  });
 
   useEffect(() => {
     if (isConfirmed) {
