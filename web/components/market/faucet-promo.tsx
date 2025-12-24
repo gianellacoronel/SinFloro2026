@@ -1,12 +1,31 @@
+"use client";
+
 import {
   MonopolyCard,
   MonopolyCardContent,
 } from "@/components/custom/monopoly-card";
-import { Coins, Droplets } from "lucide-react";
+import { Coins } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
-import Link from "next/link";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { INTITOKEN_ABI, INTITOKEN_ADDRESS } from "@/lib/constants/contracts";
+import { Spinner } from "../ui/spinner";
+import { toast } from "sonner";
 
 export function FaucetPromo() {
+  const { data: hash, writeContract, isPending } = useWriteContract();
+
+  const handleClaim = async () => {
+    writeContract({
+      address: INTITOKEN_ADDRESS,
+      abi: INTITOKEN_ABI,
+      functionName: "faucet",
+      args: [],
+    });
+  };
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({ hash });
+
   return (
     <MonopolyCard variant="accent">
       <MonopolyCardContent>
@@ -20,16 +39,23 @@ export function FaucetPromo() {
             </p>
           </div>
           <MonopolyButton
-            asChild
             variant="secondary"
             monopolySize="sm"
             className="shrink-0"
+            disabled={isPending}
+            onClick={handleClaim}
           >
-            <Link href="/faucet">
-              <Coins className="w-4 h-4 mr-1.5" />
-              <span>Reclamar</span>
-            </Link>
+            {isPending ? (
+              <Spinner className="size-6 text-primary" />
+            ) : (
+              <div className="flex items-center gap-2">
+                <Coins className="w-4 h-4 mr-1.5" />
+                <span>Reclamar</span>
+              </div>
+            )}
           </MonopolyButton>
+          {isConfirming && toast.info("Esperando la confirmación...")}
+          {isConfirmed && toast.success("Intis reclamados con éxito")}
         </div>
       </MonopolyCardContent>
     </MonopolyCard>

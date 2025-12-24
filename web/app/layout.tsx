@@ -9,6 +9,7 @@ import { ConvexClientProvider } from "./ConvexClientProvider";
 import ClientMiniApp from "./client-miniapp";
 import "@coinbase/onchainkit/styles.css";
 import Providers from "./Providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -61,6 +62,7 @@ export default function RootLayout({
             <MobileNav />
           </div>
           <Analytics />
+          <Toaster />
         </body>
       </html>
     </Providers>
