@@ -16,7 +16,7 @@ export function DesktopNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden md:flex items-center gap-1 bg-muted border-2 border-border p-1">
+    <nav className="hidden md:flex items-center gap-1 bg-muted border-2 border-border p-1 shadow-lg">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.id;

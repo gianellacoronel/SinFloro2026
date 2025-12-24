@@ -56,9 +56,7 @@ export default function RootLayout({
           <ClientMiniApp />
           <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
             <Header />
-            <div className="hidden md:block max-w-6xl mx-auto px-4 py-4">
-              <DesktopNav />
-            </div>
+
             <ConvexClientProvider>{children}</ConvexClientProvider>
             <MobileNav />
           </div>

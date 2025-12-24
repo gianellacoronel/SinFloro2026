@@ -15,11 +15,12 @@ import {
   Identity,
   EthBalance,
 } from "@coinbase/onchainkit/identity";
+import { DesktopNav } from "./desktop-nav";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-40 bg-card border-b-4 border-border">
-      <div className="flex items-center justify-between px-4 py-3">
+      <div className="flex items-center justify-between px-4 py-3 relative">
         <Link
           href="/"
           className="flex items-center gap-2 active:scale-95 transition-transform"
@@ -38,6 +39,11 @@ export function Header() {
             </p>
           </div>
         </Link>
+        
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block">
+            <DesktopNav />
+        </div>
+
         <Wallet>
           <ConnectWallet
             onConnect={() => console.log("hola")}
