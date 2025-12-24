@@ -31,7 +31,7 @@ export function CandidateCard({
   probability,
   imageQuery,
 }: CandidateCardProps) {
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const createBet = useMutation(api.bets.createBet);
   const handleBet = (amount: number) => {
     // In a real scenario, you probably want to use the 'amount' in the mutation

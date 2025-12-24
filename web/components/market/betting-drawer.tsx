@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Minus, Plus, TrendingUp, Wallet } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -57,6 +57,7 @@ export function BettingDrawer({
   const handleSubmit = () => {
     if (!isConnected) {
       toast.error("Por favor, conéctate para participar");
+      return;
     }
     onConfirmBet(amount);
     setIsOpen(false);
