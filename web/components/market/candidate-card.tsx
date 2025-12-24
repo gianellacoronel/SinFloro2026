@@ -31,16 +31,16 @@ export function CandidateCard({
   probability,
   imageQuery,
 }: CandidateCardProps) {
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const createBet = useMutation(api.bets.createBet);
   const handleBet = (amount: number) => {
-    // In a real scenario, you probably want to use the 'amount' in the mutation 
+    // In a real scenario, you probably want to use the 'amount' in the mutation
     // or checks. For now, we preserve the original mutation call but we can imagine
     // passing the amount if the backend supports it.
     // Assuming createBet might accept an amount later, or if it does already:
     // createBet({ walletAddress: ..., candidateId: ..., amount: amount })
     // For now we fulfill the interface.
-    
+
     console.log(`Betting ${amount} on ${name} (${id})`);
 
     createBet({

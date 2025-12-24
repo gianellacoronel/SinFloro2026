@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { useAccount } from "wagmi";
+import { toast } from "sonner";
 
 interface BettingDrawerProps {
   candidateName: string;
@@ -33,6 +34,7 @@ export function BettingDrawer({
   children,
   onConfirmBet,
 }: BettingDrawerProps) {
+  const { isConnected } = useAccount();
   const [amount, setAmount] = React.useState<number>(10);
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -53,6 +55,9 @@ export function BettingDrawer({
   };
 
   const handleSubmit = () => {
+    if (!isConnected) {
+      toast.error("Por favor, conéctate para participar");
+    }
     onConfirmBet(amount);
     setIsOpen(false);
   };
@@ -88,7 +93,7 @@ export function BettingDrawer({
                   {amount}
                 </div>
                 <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Fichas
+                  INTI
                 </div>
               </div>
               <Button
@@ -103,12 +108,14 @@ export function BettingDrawer({
             </div>
 
             <div className="mt-8 space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg border border-border/50 space-y-3">
+              {/*<div className="bg-muted/50 p-4 rounded-lg border border-border/50 space-y-3">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground flex items-center gap-2">
                     <TrendingUp className="w-4 h-4" /> Cuota Actual
                   </span>
-                  <span className="font-bold text-foreground">{currentOdds.toFixed(2)}x</span>
+                  <span className="font-bold text-foreground">
+                    {currentOdds.toFixed(2)}x
+                  </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground flex items-center gap-2">
@@ -118,23 +125,29 @@ export function BettingDrawer({
                     +{potentialPayout}
                   </span>
                 </div>
+              </div>*/}
+
+              <div className="hidden">
+                <Label htmlFor="bet-amount" className="sr-only">
+                  Monto de apuesta
+                </Label>
+                <Input
+                  id="bet-amount"
+                  type="number"
+                  value={amount}
+                  onChange={handleAmountChange}
+                  className="text-center"
+                />
               </div>
-              
-               <div className="hidden">
-                 <Label htmlFor="bet-amount" className="sr-only">Monto de apuesta</Label>
-                 <Input 
-                   id="bet-amount"
-                   type="number" 
-                   value={amount} 
-                   onChange={handleAmountChange}
-                   className="text-center"
-                 />
-               </div>
             </div>
           </div>
 
           <DrawerFooter>
-            <Button onClick={handleSubmit} size="lg" className="w-full text-lg font-bold uppercase tracking-wide">
+            <Button
+              onClick={handleSubmit}
+              size="lg"
+              className="w-full text-lg font-bold uppercase tracking-wide"
+            >
               Confirmar Apuesta
             </Button>
             <DrawerClose asChild>

@@ -6,15 +6,25 @@ import {
 } from "@/components/custom/monopoly-card";
 import { Coins } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { INTITOKEN_ABI, INTITOKEN_ADDRESS } from "@/lib/constants/contracts";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 
 export function FaucetPromo() {
+  const { isConnected } = useAccount();
   const { data: hash, writeContract, isPending } = useWriteContract();
 
   const handleClaim = async () => {
+    if (!isConnected) {
+      toast.error("Por favor, conecta tu cuenta");
+      return;
+    }
+
     writeContract({
       address: INTITOKEN_ADDRESS,
       abi: INTITOKEN_ABI,

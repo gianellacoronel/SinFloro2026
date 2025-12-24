@@ -39,15 +39,15 @@ export function Header() {
             </p>
           </div>
         </Link>
-        
+
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block">
-            <DesktopNav />
+          <DesktopNav />
         </div>
 
         <Wallet>
           <ConnectWallet
             onConnect={() => console.log("hola")}
-            disconnectedLabel="Comienza ahora"
+            disconnectedLabel="Conéctate ahora"
             className="bg-primary text-primary-foreground font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none transition-all"
           >
             <Avatar className="h-6 w-6" />

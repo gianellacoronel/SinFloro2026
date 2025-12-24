@@ -1,7 +1,3 @@
-import { AdminButtons } from "@/components/profile/admin-buttons";
-import { BalanceCard } from "@/components/profile/balance-card";
-import { WalletCard } from "@/components/profile/wallet-card";
-
 // const mockUserStats = {
 //   walletAddress: "0x1234...5678",
 //   fullAddress: "0x1234567890abcdef1234567890abcdef12345678",
@@ -12,6 +8,8 @@ import { WalletCard } from "@/components/profile/wallet-card";
 //   rank: 23,
 // };
 
+import { ProfileInformation } from "@/components/profile/profile-information";
+
 export default function ProfilePage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-8">
@@ -21,51 +19,7 @@ export default function ProfilePage() {
           Mi perfil
         </h1>
       </div>
-
-      {/* Wallet Section */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="h-1 w-6 bg-foreground" />
-          <h2 className="text-sm font-black uppercase tracking-widest text-foreground/80">
-            Identificación del usuario
-          </h2>
-        </div>
-        <WalletCard />
-      </section>
-
-      {/* Stats Grid - "Scorecard" style */}
-      {/*<section className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="h-1 w-6 bg-foreground" />
-          <h2 className="text-sm font-black uppercase tracking-widest text-foreground/80">
-            Hoja de Puntuación
-          </h2>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <StatCard
-            label="Total Apuestas"
-            value={mockUserStats.totalBets}
-          />
-          <StatCard
-            label="Win Rate"
-            value={`${mockUserStats.winRate}%`}
-            valueClass="text-chart-5 drop-shadow-sm"
-          />
-          <StatCard
-            label="Total Ganado"
-            value={`${mockUserStats.totalWon.toLocaleString()} FT`}
-          />
-          <StatCard
-            label="Ranking"
-            value={`#${mockUserStats.rank}`}
-          />
-        </div>
-      </section>*/}
-
-      {/* Balance & Actions */}
-      <BalanceCard />
-
-      <AdminButtons />
+      <ProfileInformation />
     </main>
   );
 }

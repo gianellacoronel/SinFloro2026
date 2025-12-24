@@ -5,7 +5,7 @@ import { useQuery } from "convex/react";
 import { useAccount } from "wagmi";
 import { BetTicket } from "./bet-ticket";
 import { EmptyComponent } from "../custom/empty-component";
-import { TicketMinus } from "lucide-react";
+import { TicketMinus, WalletCards } from "lucide-react";
 import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
 
 export function ListBets() {
@@ -17,7 +17,7 @@ export function ListBets() {
       <EmptyComponent
         title="Cuenta no conectada"
         description="Por favor, conéctate para comenzar."
-        icon={<TicketMinus />}
+        icon={<WalletCards />}
       />
     );
 
