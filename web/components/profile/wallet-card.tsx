@@ -1,12 +1,13 @@
 "use client";
 
-import { Check, Copy, Wallet } from "lucide-react";
+import { Check, Copy, Wallet, CreditCard } from "lucide-react";
 import {
   MonopolyCard,
   MonopolyCardContent,
   MonopolyCardHeader,
 } from "../custom/monopoly-card";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface WalletCardProps {
   address: string;
@@ -23,30 +24,34 @@ export function WalletCard({ address, shortAddress }: WalletCardProps) {
   };
 
   return (
-    <MonopolyCard>
-      <MonopolyCardHeader>
-        <div className="flex items-center gap-2">
-          <Wallet className="w-5 h-5" />
-          <span className="text-sm font-bold uppercase tracking-wide">
-            Wallet Conectada
-          </span>
-        </div>
-      </MonopolyCardHeader>
+    <MonopolyCard className="relative overflow-hidden ">
       <MonopolyCardContent>
-        <div className="flex items-center justify-between bg-muted border-2 border-border px-4 py-3">
-          <code className="text-sm font-mono font-bold text-foreground">
-            {shortAddress}
-          </code>
-          <button
-            onClick={handleCopy}
-            className="p-2 bg-card border-2 border-border active:scale-95 transition-transform"
-          >
-            {copied ? (
-              <Check className="w-4 h-4 text-chart-5" />
-            ) : (
-              <Copy className="w-4 h-4 text-muted-foreground" />
-            )}
-          </button>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-2">
+            <code className="text-lg font-bold tracking-wider">
+              {shortAddress}
+            </code>
+            <button
+              onClick={handleCopy}
+              className={cn(
+                "rounded-md transition-all active:scale-95 active:translate-y-1",
+                copied
+                  ? "bg-green-500 text-black"
+                  : "bg-white text-black hover:bg-gray-200",
+              )}
+            >
+              {copied ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+          <div className="text-right">
+            <span className="text-xs font-bold uppercase tracking-wide border-2 border-black px-2 py-0.5 rounded-full bg-successful text-white">
+              Active
+            </span>
+          </div>
         </div>
       </MonopolyCardContent>
     </MonopolyCard>
