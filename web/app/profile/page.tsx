@@ -36,10 +36,7 @@ export default function ProfilePage() {
             Identificación del usuario
           </h2>
         </div>
-        <WalletCard
-          address={mockUserStats.fullAddress}
-          shortAddress={mockUserStats.walletAddress}
-        />
+        <WalletCard />
       </section>
 
       {/* Stats Grid - "Scorecard" style */}
