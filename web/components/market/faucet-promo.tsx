@@ -64,8 +64,8 @@ export function FaucetPromo() {
               </div>
             )}
           </MonopolyButton>
-          {isConfirming && toast.info("Esperando la confirmación...")}
-          {isConfirmed && toast.success("Intis reclamados con éxito")}
+          {isConfirming && void toast.info("Esperando la confirmación...")}
+          {isConfirmed && void toast.success("Intis reclamados con éxito")}
         </div>
       </MonopolyCardContent>
     </MonopolyCard>
