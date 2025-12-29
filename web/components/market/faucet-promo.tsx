@@ -8,6 +8,7 @@ import { Coins } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
 import {
   useAccount,
+  useSendCalls,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
@@ -19,58 +20,51 @@ import {
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import { encodeFunctionData } from "viem";
+import { baseSepolia } from "viem/chains";
 
 export function FaucetPromo() {
   const { isConnected } = useAccount();
+  const { sendCalls, data, isPending, isSuccess, error } = useSendCalls();
 
-  const { 
-    data: faucetHash, 
-    writeContract: writeFaucet, 
-    isPending: isFaucetPending 
-  } = useWriteContract();
+  async function handleClaim() {
+    try {
+      if (!isConnected) {
+        toast.error("Por favor, conecta tu cuenta");
+        return;
+      }
 
-  const { 
-    isLoading: isFaucetConfirming, 
-    isSuccess: isFaucetConfirmed 
-  } = useWaitForTransactionReceipt({ hash: faucetHash });
+      const callFaucet = encodeFunctionData({
+        // address: INTITOKEN_ADDRESS,
+        abi: INTITOKEN_ABI,
+        functionName: "faucet",
+        args: [],
+      });
 
-  const { 
-    data: approveHash, 
-    writeContract: writeApprove, 
-    isPending: isApprovePending 
-  } = useWriteContract();
-
-  const { 
-    isLoading: isApproveConfirming, 
-    isSuccess: isApproveConfirmed 
-  } = useWaitForTransactionReceipt({ hash: approveHash });
-
-  const handleClaim = async () => {
-    if (!isConnected) {
-      toast.error("Por favor, conecta tu cuenta");
-      return;
-    }
-
-    writeFaucet({
-      address: INTITOKEN_ADDRESS,
-      abi: INTITOKEN_ABI,
-      functionName: "faucet",
-      args: [],
-    });
-  };
-
-  useEffect(() => {
-    if (isFaucetConfirmed && !approveHash) {
-      writeApprove({
-        address: INTITOKEN_ADDRESS,
+      const callApprove = encodeFunctionData({
+        // address: INTITOKEN_ADDRESS,
         abi: INTITOKEN_ABI,
         functionName: "approve",
         args: [SIN_FLORO_ADDRESS, BigInt(1000 * 10 ** 18)],
       });
-    }
-  }, [isFaucetConfirmed, approveHash, writeApprove]);
 
-  const isPending = isFaucetPending || isApprovePending || isFaucetConfirming || isApproveConfirming;
+      sendCalls({
+        calls: [
+          {
+            to: INTITOKEN_ADDRESS,
+            data: callFaucet,
+          },
+          {
+            to: INTITOKEN_ADDRESS,
+            data: callApprove,
+          },
+        ],
+        chainId: baseSepolia.id,
+      });
+    } catch (error) {
+      void toast.error(error.message);
+    }
+  }
 
   return (
     <MonopolyCard variant="accent">
@@ -100,9 +94,7 @@ export function FaucetPromo() {
               </div>
             )}
           </MonopolyButton>
-          {isFaucetConfirming && void toast.info("Confirmando obtención de intis")}
-          {isApproveConfirming && void toast.info("Confirmando aprobación de la operación")}
-          {isApproveConfirmed && void toast.success("Intis reclamados y aprobados con éxito")}
+          {isSuccess && void toast.success("Intis reclamados con éxito")}
         </div>
       </MonopolyCardContent>
     </MonopolyCard>

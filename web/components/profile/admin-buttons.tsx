@@ -15,6 +15,7 @@ import {
 } from "@/lib/constants/contracts";
 import { Button } from "../ui/button";
 import { baseSepolia } from "viem/chains";
+import { toast } from "sonner";
 
 export function AdminButtons() {
   const { address, chain } = useAccount();
@@ -33,7 +34,7 @@ export function AdminButtons() {
   const handleAddCandidate = async () => {
     try {
       if (chain?.id !== baseSepolia.id) {
-        console.log("Red incorrecta, cambiando a Base Sepolia...");
+        void toast.info("Red incorrecta, cambiando a Base Sepolia...");
         await switchChain({ chainId: baseSepolia.id });
       }
       writeContract({
