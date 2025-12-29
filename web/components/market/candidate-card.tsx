@@ -8,6 +8,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
   useAccount,
+  useBalance,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
@@ -15,7 +16,11 @@ import { Id } from "@/convex/_generated/dataModel";
 import { BettingDrawer } from "./betting-drawer";
 import { toast } from "sonner";
 import { parseUnits } from "viem";
-import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
+import {
+  INTITOKEN_ADDRESS,
+  SIN_FLORO_ABI,
+  SIN_FLORO_ADDRESS,
+} from "@/lib/constants/contracts";
 import { useEffect, useState } from "react";
 
 interface CandidateCardProps {
@@ -42,8 +47,12 @@ export function CandidateCard({
   imageQuery,
 }: CandidateCardProps) {
   const { address } = useAccount();
-  const { data: hash, isPending, writeContract } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+  const { data: balance, isSuccess: IsBalanceSuccess } = useBalance({
+    address,
+    token: INTITOKEN_ADDRESS,
+  });
+  const { data: hash, writeContract } = useWriteContract();
+  const { isSuccess } = useWaitForTransactionReceipt({
     hash,
   });
   const [pendingBet, setPendingBet] = useState<{
@@ -68,6 +77,11 @@ export function CandidateCard({
   const handleBet = (amount: number) => {
     try {
       const amountInWei = parseUnits(amount.toString(), 18);
+      if (IsBalanceSuccess && balance.value - amountInWei < 0) {
+        void toast.error(
+          "INTIs insuficientes en tu cuenta. Puedes reclamar más para poder apostar.",
+        );
+      }
       setPendingBet({
         candidateContractId: contractId,
         amount,
