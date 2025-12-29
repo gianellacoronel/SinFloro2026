@@ -61,7 +61,7 @@ export function FaucetPromo() {
         ],
         chainId: baseSepolia.id,
       });
-    } catch (error) {
+    } catch (error: any) {
       void toast.error(error.message);
     }
   }
