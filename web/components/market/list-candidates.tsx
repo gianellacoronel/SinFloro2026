@@ -23,7 +23,6 @@ export function ListCandidates(props: {
             odds={candidate.currentOdds}
             partyColorClass={candidate.color}
             probability={0.0}
-            totalPool={candidate.totalPool}
           />
         );
       })}

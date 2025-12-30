@@ -2,26 +2,27 @@
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { TrendingUp } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
   useAccount,
   useBalance,
+  useReadContract,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
 import { Id } from "@/convex/_generated/dataModel";
 import { BettingDrawer } from "./betting-drawer";
 import { toast } from "sonner";
-import { parseUnits } from "viem";
+import { formatUnits, parseUnits } from "viem";
 import {
   INTITOKEN_ADDRESS,
   SIN_FLORO_ABI,
   SIN_FLORO_ADDRESS,
 } from "@/lib/constants/contracts";
 import { useEffect, useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 interface CandidateCardProps {
   id: string;
@@ -30,7 +31,6 @@ interface CandidateCardProps {
   party: string;
   partyColorClass: string;
   odds: number;
-  totalPool: string;
   probability: number;
   imageQuery: string;
 }
@@ -42,7 +42,6 @@ export function CandidateCard({
   party,
   partyColorClass,
   odds,
-  totalPool,
   probability,
   imageQuery,
 }: CandidateCardProps) {
@@ -98,6 +97,13 @@ export function CandidateCard({
     }
   };
 
+  const totalPool = useReadContract({
+    abi: SIN_FLORO_ABI,
+    address: SIN_FLORO_ADDRESS,
+    functionName: "getCandidatePool",
+    args: [BigInt(contractId)],
+  });
+
   return (
     <div className="bg-card border-4 border-border shadow-[6px_6px_0px_0px] shadow-border overflow-hidden transition-all active:shadow-[3px_3px_0px_0px] active:translate-x-0.5 active:translate-y-0.5">
       {/* Party color header strip */}
@@ -138,23 +144,24 @@ export function CandidateCard({
 
         {/* Stats - Monopoly rent style */}
         <div className="border-2 border-border divide-y-2 divide-border">
-          <div className="flex justify-between items-center px-3 py-2 bg-muted">
+          {/*<div className="flex justify-between items-center px-3 py-2 bg-muted">
             <span className="text-xs font-bold uppercase text-muted-foreground">
               Cuota
             </span>
             <span className="text-lg font-bold text-card-foreground">
               {odds.toFixed(2)}x
             </span>
-          </div>
-          <div className="flex justify-between items-center px-3 py-2">
+          </div>*/}
+          <div className="flex justify-between items-center px-3 py-2 bg-muted">
             <span className="text-xs font-bold uppercase text-muted-foreground">
-              Pool Total
+              Pozo Total
             </span>
             <span className="text-sm font-bold text-card-foreground">
-              {totalPool}
+              {totalPool.data ? formatUnits(totalPool.data, 18).toString() : 0}{" "}
+              INTI
             </span>
           </div>
-          <div className="flex justify-between items-center px-3 py-2 bg-muted">
+          {/*<div className="flex justify-between items-center px-3 py-2 bg-muted">
             <span className="text-xs font-bold uppercase text-muted-foreground">
               Probabilidad
             </span>
@@ -164,7 +171,7 @@ export function CandidateCard({
                 {probability}%
               </span>
             </div>
-          </div>
+          </div>*/}
         </div>
 
         {/* Bet button */}
