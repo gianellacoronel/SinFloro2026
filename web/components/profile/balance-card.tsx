@@ -42,7 +42,7 @@ export function BalanceCard() {
         </MonopolyCardContent>
       </MonopolyCard>
 
-      <div className="space-y-3">
+      <div className="space-y-3 hidden">
         <MonopolyButton
           variant="destructive"
           className="w-full h-14 text-lg font-black uppercase"
