@@ -46,9 +46,6 @@ export function BetTicket({ bet }: { bet: Bet }) {
       <div className="bg-muted border-b-4 border-dashed border-border px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Ticket className="w-4 h-4 text-muted-foreground" />
-          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            ID
-          </span>
         </div>
         <span className="text-xs font-bold text-muted-foreground">
           {new Date(bet._creationTime).toLocaleString("es-PE")}
@@ -73,21 +70,14 @@ export function BetTicket({ bet }: { bet: Bet }) {
             </p>
             <p className="font-bold text-card-foreground">{bet.amount} INTI</p>
           </div>
-          <div className="bg-muted px-3 py-2 border-2 border-border">
-            <p className="text-[10px] font-bold uppercase text-muted-foreground">
-              Cuota
+          <div className="bg-accent px-3 py-2 border-2 border-border">
+            <p className="text-[10px] font-bold uppercase text-accent-foreground/70">
+              Pago potencial
             </p>
-            <p className="font-bold text-card-foreground">{bet.odds}x</p>
+            <p className="font-bold text-accent-foreground">
+              {bet.potentialPayout} INTI
+            </p>
           </div>
-        </div>
-
-        <div className="bg-accent border-2 border-border px-3 py-2 text-center">
-          <p className="text-[10px] font-bold uppercase text-accent-foreground/70">
-            Pago Potencial
-          </p>
-          <p className="text-xl font-bold text-accent-foreground">
-            {bet.potentialPayout} INTI
-          </p>
         </div>
 
         <div className="flex justify-center">
