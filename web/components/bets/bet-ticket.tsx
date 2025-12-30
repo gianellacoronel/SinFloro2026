@@ -51,7 +51,7 @@ export function BetTicket({ bet }: { bet: Bet }) {
           </span>
         </div>
         <span className="text-xs font-bold text-muted-foreground">
-          {bet._creationTime}
+          {new Date(bet._creationTime).toLocaleString("es-PE")}
         </span>
       </div>
 
