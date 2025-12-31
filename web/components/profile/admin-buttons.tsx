@@ -72,7 +72,7 @@ export function AdminButtons() {
     }
   }, [isConfirmed]);
 
-  if (address !== (process.env.ADDRESS_OWNER as `0x${string}`)) {
+  if (address !== process.env.NEXT_PUBLIC_ADDRESS_OWNER) {
     return null;
   }
   return (
