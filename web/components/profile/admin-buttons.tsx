@@ -6,20 +6,17 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { useEffect } from "react";
-import {
-  INTITOKEN_ABI,
-  INTITOKEN_ADDRESS,
-  SIN_FLORO_ABI,
-  SIN_FLORO_ADDRESS,
-} from "@/lib/constants/contracts";
+import { useEffect, useState } from "react";
+import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
 import { Button } from "../ui/button";
 import { baseSepolia } from "viem/chains";
 import { toast } from "sonner";
+import { Input } from "../ui/input";
 
 export function AdminButtons() {
   const { address, chain } = useAccount();
   const { switchChain } = useSwitchChain();
+  const [value, setValue] = useState<number>(-1);
 
   const {
     data: hash,
@@ -49,12 +46,23 @@ export function AdminButtons() {
     }
   };
 
-  const handleFaucet = () => {
+  const handleCloseVoting = () => {
     writeContract({
-      address: INTITOKEN_ADDRESS,
-      abi: INTITOKEN_ABI,
-      functionName: "faucet",
-      args: [],
+      address: SIN_FLORO_ADDRESS,
+      abi: SIN_FLORO_ABI,
+      functionName: "closeVoting",
+      chainId: baseSepolia.id,
+    });
+  };
+
+  const handleResolveVoting = (winnerId: number) => {
+    console.log("id winner: ", winnerId);
+    writeContract({
+      address: SIN_FLORO_ADDRESS,
+      abi: SIN_FLORO_ABI,
+      functionName: "resolveMarket",
+      chainId: baseSepolia.id,
+      args: [BigInt(winnerId)],
     });
   };
 
@@ -75,9 +83,26 @@ export function AdminButtons() {
       >
         Agregar candidato
       </Button>
-      <Button onClick={handleFaucet} disabled={isWalletLoading || isConfirming}>
-        Recolectar
+
+      <Button
+        onClick={handleCloseVoting}
+        disabled={isWalletLoading || isConfirming}
+      >
+        Cerrar votaciones
       </Button>
+
+      <div className="flex gap-2">
+        <Input
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Ingresa el id (contrato) del ganador "
+        />
+        <Button
+          onClick={() => handleResolveVoting(value)}
+          disabled={isWalletLoading || isConfirming}
+        >
+          Declarar ganador
+        </Button>
+      </div>
 
       {writeError && (
         <p className="text-red-500 text-xs font-bold mt-1">
