@@ -72,7 +72,7 @@ export function AdminButtons() {
     }
   }, [isConfirmed]);
 
-  if (address !== "0x0fb249b159543BCcE6f1f649DAdfe2f31a4a80D9") {
+  if (address !== (process.env.ADDRESS_OWNER as `0x${string}`)) {
     return null;
   }
   return (
@@ -93,7 +93,7 @@ export function AdminButtons() {
 
       <div className="flex gap-2">
         <Input
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setValue(Number(e.target.value))}
           placeholder="Ingresa el id (contrato) del ganador "
         />
         <Button
