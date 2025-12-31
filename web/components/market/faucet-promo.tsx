@@ -21,7 +21,7 @@ import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { encodeFunctionData } from "viem";
-import { baseSepolia } from "viem/chains";
+import { base, baseSepolia } from "viem/chains";
 
 export function FaucetPromo() {
   const { isConnected } = useAccount();
@@ -59,7 +59,6 @@ export function FaucetPromo() {
             data: callApprove,
           },
         ],
-        chainId: baseSepolia.id,
       });
     } catch (error: any) {
       void toast.error(error.message);

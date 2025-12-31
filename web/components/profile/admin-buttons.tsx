@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
 import { Button } from "../ui/button";
-import { baseSepolia } from "viem/chains";
+import { base, baseSepolia } from "viem/chains";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
 
@@ -30,9 +30,9 @@ export function AdminButtons() {
 
   const handleAddCandidate = async () => {
     try {
-      if (chain?.id !== baseSepolia.id) {
-        void toast.info("Red incorrecta, cambiando a Base Sepolia...");
-        await switchChain({ chainId: baseSepolia.id });
+      if (chain?.id !== base.id) {
+        void toast.info("Red incorrecta, cambiando a Base...");
+        await switchChain({ chainId: base.id });
       }
       writeContract({
         address: SIN_FLORO_ADDRESS,
@@ -51,7 +51,7 @@ export function AdminButtons() {
       address: SIN_FLORO_ADDRESS,
       abi: SIN_FLORO_ABI,
       functionName: "closeVoting",
-      chainId: baseSepolia.id,
+      chainId: base.id,
     });
   };
 
@@ -61,7 +61,7 @@ export function AdminButtons() {
       address: SIN_FLORO_ADDRESS,
       abi: SIN_FLORO_ABI,
       functionName: "resolveMarket",
-      chainId: baseSepolia.id,
+      chainId: base.id,
       args: [BigInt(winnerId)],
     });
   };
