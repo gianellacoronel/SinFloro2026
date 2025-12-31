@@ -1,5 +1,8 @@
 import { ListBets } from "@/components/bets/list-bets";
+import { api } from "@/convex/_generated/api";
+import { preloadQuery } from "convex/nextjs";
 import { Ticket } from "lucide-react";
+import { cookies } from "next/headers";
 
 // const mockBets: Bet[] = [
 //   {
@@ -44,7 +47,14 @@ import { Ticket } from "lucide-react";
 //   },
 // ];
 
-export default function BetsPage() {
+export default async function BetsPage() {
+  const cookieStore = await cookies();
+  const walletAddress = cookieStore.get("user_wallet_address")?.value;
+
+  const preloadedBets = walletAddress
+    ? await preloadQuery(api.bets.getBets, { walletAddress })
+    : undefined;
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div className="border-b-4 border-border pb-2">
@@ -58,7 +68,7 @@ export default function BetsPage() {
         </p>
       </div>
 
-      <ListBets />
+      <ListBets preloadedBets={preloadedBets} />
     </main>
   );
 }

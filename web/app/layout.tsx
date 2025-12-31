@@ -9,6 +9,7 @@ import ClientMiniApp from "./client-miniapp";
 import "@coinbase/onchainkit/styles.css";
 import Providers from "./Providers";
 import { Toaster } from "@/components/ui/sonner";
+import { WalletCookieSync } from "@/components/wallet-cookie-sync";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -57,7 +58,10 @@ export default function RootLayout({
           <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
             <Header />
 
-            <ConvexClientProvider>{children}</ConvexClientProvider>
+            <ConvexClientProvider>
+              <WalletCookieSync />
+              {children}
+            </ConvexClientProvider>
             <MobileNav />
           </div>
           <Analytics />

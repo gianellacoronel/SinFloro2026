@@ -4,7 +4,7 @@ import { MonopolyBadge } from "../custom/monopoly-badge";
 
 type BetStatus = "open" | "won" | "lost";
 
-interface Bet {
+export interface Bet {
   _id: string;
   candidate: string;
   party: string;

@@ -1,14 +1,35 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
+import { Preloaded, usePreloadedQuery, useQuery } from "convex/react";
 import { useAccount } from "wagmi";
-import { BetTicket } from "./bet-ticket";
+import { BetTicket, Bet } from "./bet-ticket";
 import { EmptyComponent } from "../custom/empty-component";
 import { TicketMinus, WalletCards } from "lucide-react";
 import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
 
-export function ListBets() {
+interface ListBetsProps {
+  preloadedBets?: Preloaded<typeof api.bets.getBets>;
+}
+
+export function ListBets({ preloadedBets }: ListBetsProps) {
+  if (preloadedBets) {
+    return <ListBetsPreloaded preloadedBets={preloadedBets} />;
+  }
+  return <ListBetsClient />;
+}
+
+function ListBetsPreloaded({
+  preloadedBets,
+}: {
+  preloadedBets: Preloaded<typeof api.bets.getBets>;
+}) {
+  const bets = usePreloadedQuery(preloadedBets);
+  // We can assume valid session if preloaded existed, or we display what we have.
+  return <BetsUI bets={bets} />;
+}
+
+function ListBetsClient() {
   const { address, isConnected } = useAccount();
   const bets = useQuery(api.bets.getBets, { walletAddress: address ?? "0x" });
 
@@ -21,6 +42,14 @@ export function ListBets() {
       />
     );
 
+  return <BetsUI bets={bets} />;
+}
+
+function BetsUI({
+  bets,
+}: {
+  bets: Array<Bet> | undefined | null;
+}) {
   if (!bets || bets.length === 0) {
     return (
       <EmptyComponent
