@@ -59,6 +59,7 @@ export function FaucetPromo() {
             data: callApprove,
           },
         ],
+        chainId: base.id,
       });
     } catch (error: any) {
       void toast.error(error.message);
