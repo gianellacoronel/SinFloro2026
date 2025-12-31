@@ -2,7 +2,7 @@ import { Clock, LucideIcon, Ticket, Trophy, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MonopolyBadge } from "../custom/monopoly-badge";
 
-type BetStatus = "open" | "won" | "lost";
+export type BetStatus = "open" | "won" | "lost";
 
 export interface Bet {
   _id: string;

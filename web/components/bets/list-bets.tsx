@@ -2,14 +2,31 @@
 
 import { api } from "@/convex/_generated/api";
 import { Preloaded, usePreloadedQuery, useQuery } from "convex/react";
-import { useAccount } from "wagmi";
-import { BetTicket, Bet } from "./bet-ticket";
+import {
+  useAccount,
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import { BetTicket, Bet, BetStatus } from "./bet-ticket";
 import { EmptyComponent } from "../custom/empty-component";
 import { TicketMinus, WalletCards } from "lucide-react";
 import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
+import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
+import { Button } from "../ui/button";
+import { MonopolyButton } from "../custom/monopoly-button";
 
 interface ListBetsProps {
   preloadedBets?: Preloaded<typeof api.bets.getBets>;
+}
+
+export interface WinningBet {
+  _id: string;
+  amount: number;
+  odds: number;
+  potentialPayout: number;
+  status: BetStatus;
+  _creationTime: number;
 }
 
 export function ListBets({ preloadedBets }: ListBetsProps) {
@@ -26,12 +43,23 @@ function ListBetsPreloaded({
 }) {
   const bets = usePreloadedQuery(preloadedBets);
   // We can assume valid session if preloaded existed, or we display what we have.
-  return <BetsUI bets={bets} />;
+  return <BetsUI bets={bets} winningBet={null} />;
 }
 
 function ListBetsClient() {
   const { address, isConnected } = useAccount();
+
+  const { data: winningCandidateId } = useReadContract({
+    address: SIN_FLORO_ADDRESS,
+    abi: SIN_FLORO_ABI,
+    functionName: "winnerCandidateId",
+  });
+
   const bets = useQuery(api.bets.getBets, { walletAddress: address ?? "0x" });
+  const winningBet = useQuery(api.bets.getABetForWinningCandidate, {
+    walletAddress: address ?? "0x",
+    winningCandidateId: Number(winningCandidateId),
+  });
 
   if (!address && !isConnected)
     return (
@@ -42,14 +70,21 @@ function ListBetsClient() {
       />
     );
 
-  return <BetsUI bets={bets} />;
+  return <BetsUI bets={bets} winningBet={winningBet} />;
 }
 
 function BetsUI({
   bets,
+  winningBet,
 }: {
   bets: Array<Bet> | undefined | null;
+  winningBet: any;
 }) {
+  const { data: hash, writeContract, isPending } = useWriteContract();
+  const { isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
+
   if (!bets || bets.length === 0) {
     return (
       <EmptyComponent
@@ -60,6 +95,14 @@ function BetsUI({
     );
   }
 
+  const handleClaimPrize = () => {
+    writeContract({
+      address: SIN_FLORO_ADDRESS,
+      abi: SIN_FLORO_ABI,
+      functionName: "claimPrize",
+    });
+  };
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -67,7 +110,12 @@ function BetsUI({
           <BetTicket key={bet._id} bet={bet} />
         ))}
       </div>
-      <MonopolyCard>
+      {winningBet && (
+        <MonopolyButton onClick={handleClaimPrize} disabled={isPending}>
+          ¡Ganaste! Reclama tus ganancias
+        </MonopolyButton>
+      )}
+      {/*<MonopolyCard>
         <MonopolyCardContent className="p-4">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div className="space-y-1">
@@ -90,7 +138,7 @@ function BetsUI({
             </div>
           </div>
         </MonopolyCardContent>
-      </MonopolyCard>
+      </MonopolyCard>*/}
     </>
   );
 }

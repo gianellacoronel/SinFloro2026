@@ -25,7 +25,11 @@ export default defineSchema({
     potentialPayout: v.number(),
   })
     .index("by_wallet", ["walletAddress"])
-    .index("by_candidate", ["candidateId"]),
+    .index("by_candidate", ["candidateId"])
+    .index("by_wallet_and_contractCandidate", [
+      "walletAddress",
+      "contractCandidateId",
+    ]),
 
   users: defineTable({
     walletAddress: v.string(),

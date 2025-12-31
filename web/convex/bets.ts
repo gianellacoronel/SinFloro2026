@@ -27,6 +27,22 @@ export const getBets = query({
   },
 });
 
+export const getABetForWinningCandidate = query({
+  args: { walletAddress: v.string(), winningCandidateId: v.number() },
+  handler: async (ctx, args) => {
+    const bet = await ctx.db
+      .query("bets")
+      .withIndex("by_wallet_and_contractCandidate", (q) =>
+        q
+          .eq("walletAddress", args.walletAddress)
+          .eq("contractCandidateId", args.winningCandidateId),
+      )
+      .first();
+
+    return bet;
+  },
+});
+
 export const createBet = mutation({
   args: {
     walletAddress: v.string(),

@@ -22,7 +22,6 @@ import {
   SIN_FLORO_ADDRESS,
 } from "@/lib/constants/contracts";
 import { useEffect, useState } from "react";
-import { Skeleton } from "../ui/skeleton";
 
 interface CandidateCardProps {
   id: string;
