@@ -16,8 +16,13 @@ import {
   EthBalance,
 } from "@coinbase/onchainkit/identity";
 import { DesktopNav } from "./desktop-nav";
+import { useAccount, useSwitchChain } from "wagmi";
+import { base } from "viem/chains";
 
 export function Header() {
+  const { chain } = useAccount();
+  const { switchChain } = useSwitchChain();
+
   return (
     <header className="sticky top-0 z-40 bg-card border-b-4 border-border">
       <div className="flex items-center justify-between px-4 py-3 relative">
@@ -46,7 +51,11 @@ export function Header() {
 
         <Wallet>
           <ConnectWallet
-            onConnect={() => console.log("hola")}
+            onConnect={() => {
+              if (chain?.id !== base.id) {
+                switchChain({ chainId: base.id });
+              }
+            }}
             disconnectedLabel="Conéctate ahora"
             className="bg-primary text-primary-foreground font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none transition-all"
           >

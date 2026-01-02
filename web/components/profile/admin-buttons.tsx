@@ -15,7 +15,6 @@ import { Input } from "../ui/input";
 
 export function AdminButtons() {
   const { address, chain } = useAccount();
-  const { switchChain } = useSwitchChain();
   const [value, setValue] = useState<number>(-1);
 
   const {
@@ -68,12 +67,6 @@ export function AdminButtons() {
       console.log("Candidate added successfully");
     }
   }, [isConfirmed]);
-
-  useEffect(() => {
-    if (chain?.id !== base.id) {
-      switchChain({ chainId: base.id });
-    }
-  }, []);
 
   if (address !== process.env.NEXT_PUBLIC_ADDRESS_OWNER) {
     return null;
