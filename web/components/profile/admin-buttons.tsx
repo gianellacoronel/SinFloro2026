@@ -27,18 +27,15 @@ export function AdminButtons() {
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({ hash });
+  console.log(chain?.name);
 
   const handleAddCandidate = async () => {
     try {
-      if (chain?.id !== base.id) {
-        void toast.info("Red incorrecta, cambiando a Base...");
-        await switchChain({ chainId: base.id });
-      }
       writeContract({
         address: SIN_FLORO_ADDRESS,
         abi: SIN_FLORO_ABI,
         functionName: "addCandidate",
-        chainId: baseSepolia.id,
+        chainId: base.id,
         args: [],
       });
     } catch (error) {
@@ -71,6 +68,12 @@ export function AdminButtons() {
       console.log("Candidate added successfully");
     }
   }, [isConfirmed]);
+
+  useEffect(() => {
+    if (chain?.id !== base.id) {
+      switchChain({ chainId: base.id });
+    }
+  }, []);
 
   if (address !== process.env.NEXT_PUBLIC_ADDRESS_OWNER) {
     return null;
