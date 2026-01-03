@@ -3,7 +3,6 @@ import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 
 export async function ListCandidates() {
-  // const candidates = usePreloadedQuery(props.preloadedCandidates);
   const candidates = await fetchQuery(api.candidates.getCandidates);
 
   return (
