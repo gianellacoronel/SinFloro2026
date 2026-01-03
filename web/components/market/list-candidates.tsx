@@ -1,17 +1,14 @@
-"use client";
-
-import { Preloaded, usePreloadedQuery } from "convex/react";
 import { CandidateCard } from "./candidate-card";
 import { api } from "@/convex/_generated/api";
+import { fetchQuery } from "convex/nextjs";
 
-export function ListCandidates(props: {
-  preloadedCandidates: Preloaded<typeof api.candidates.getCandidates>;
-}) {
-  const candidates = usePreloadedQuery(props.preloadedCandidates);
+export async function ListCandidates() {
+  // const candidates = usePreloadedQuery(props.preloadedCandidates);
+  const candidates = await fetchQuery(api.candidates.getCandidates);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {candidates?.map((candidate) => {
+      {candidates.map((candidate) => {
         return (
           <CandidateCard
             key={candidate._id}
