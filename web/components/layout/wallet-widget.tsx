@@ -16,10 +16,19 @@ import {
 import { Avatar } from "../ui/avatar";
 import { useAccount, useSwitchChain } from "wagmi";
 import { base } from "viem/chains";
+import { useEffect } from "react";
 
 export function WalletWidget() {
-  const { chain } = useAccount();
+  const { address, isConnected, chain } = useAccount();
   const { switchChain } = useSwitchChain();
+
+  useEffect(() => {
+    if (isConnected && address) {
+      document.cookie = `user_wallet_address=${address}; path=/; max-age=31536000; SameSite=Strict`;
+    } else {
+      document.cookie = `user_wallet_address=; path=/; max-age=0; SameSite=Strict`;
+    }
+  }, [address, isConnected]);
 
   return (
     <Wallet>
