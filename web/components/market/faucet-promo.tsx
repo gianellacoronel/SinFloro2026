@@ -6,12 +6,7 @@ import {
 } from "@/components/custom/monopoly-card";
 import { Coins } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
-import {
-  useAccount,
-  useSendCalls,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useSendCalls } from "wagmi";
 import {
   INTITOKEN_ABI,
   INTITOKEN_ADDRESS,
@@ -19,13 +14,12 @@ import {
 } from "@/lib/constants/contracts";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
-import { useEffect } from "react";
 import { encodeFunctionData } from "viem";
-import { base, baseSepolia } from "viem/chains";
+import { base } from "viem/chains";
 
 export function FaucetPromo() {
   const { isConnected } = useAccount();
-  const { sendCalls, data, isPending, isSuccess, error } = useSendCalls();
+  const { sendCalls, isPending, isSuccess } = useSendCalls();
 
   async function handleClaim() {
     try {
@@ -35,14 +29,12 @@ export function FaucetPromo() {
       }
 
       const callFaucet = encodeFunctionData({
-        // address: INTITOKEN_ADDRESS,
         abi: INTITOKEN_ABI,
         functionName: "faucet",
         args: [],
       });
 
       const callApprove = encodeFunctionData({
-        // address: INTITOKEN_ADDRESS,
         abi: INTITOKEN_ABI,
         functionName: "approve",
         args: [SIN_FLORO_ADDRESS, BigInt(1000 * 10 ** 18)],
