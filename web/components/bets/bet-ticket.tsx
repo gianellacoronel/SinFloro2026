@@ -13,6 +13,7 @@ export interface Bet {
   potentialPayout: number;
   status: BetStatus;
   _creationTime: number;
+  contractCandidateId: number;
 }
 
 const statusConfig: Record<

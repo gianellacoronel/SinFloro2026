@@ -16,6 +16,7 @@ import {
 import { Avatar } from "../ui/avatar";
 import { useAccount, useSwitchChain } from "wagmi";
 import { base } from "viem/chains";
+import { updateWalletCookie } from "@/app/actions/wallet";
 import { useEffect } from "react";
 
 export function WalletWidget() {
@@ -24,11 +25,13 @@ export function WalletWidget() {
 
   useEffect(() => {
     if (isConnected && address) {
-      document.cookie = `user_wallet_address=${address}; path=/; max-age=31536000; SameSite=Strict`;
+      updateWalletCookie(address);
     } else {
-      document.cookie = `user_wallet_address=; path=/; max-age=0; SameSite=Strict`;
+      updateWalletCookie(null);
     }
   }, [address, isConnected]);
+
+
 
   return (
     <Wallet>

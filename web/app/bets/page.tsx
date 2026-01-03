@@ -1,15 +1,12 @@
 import { ListBets } from "@/components/bets/list-bets";
-import { api } from "@/convex/_generated/api";
-import { preloadQuery } from "convex/nextjs";
-import { cookies } from "next/headers";
 
 export default async function BetsPage() {
-  const cookieStore = await cookies();
-  const walletAddress = cookieStore.get("user_wallet_address")?.value;
+  // const cookieStore = await cookies();
+  // const walletAddress = cookieStore.get("user_wallet_address")?.value;
 
-  const preloadedBets = walletAddress
-    ? await preloadQuery(api.bets.getBets, { walletAddress })
-    : undefined;
+  // const preloadedBets = walletAddress
+  //   ? await preloadQuery(api.bets.getBets, { walletAddress })
+  //   : undefined;
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
@@ -24,7 +21,7 @@ export default async function BetsPage() {
         </p>
       </div>
 
-      <ListBets preloadedBets={preloadedBets} />
+      <ListBets />
     </main>
   );
 }

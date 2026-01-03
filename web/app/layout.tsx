@@ -9,7 +9,7 @@ import ClientMiniApp from "./client-miniapp";
 import "@coinbase/onchainkit/styles.css";
 import Providers from "./Providers";
 import { Toaster } from "@/components/ui/sonner";
-import { WalletCookieSync } from "@/components/wallet-cookie-sync";
+
 
 const oswald = Oswald({
   subsets: ["latin"],
