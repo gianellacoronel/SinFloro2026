@@ -13,7 +13,7 @@ export function MarketStats({ stats }: MarketStatsProps) {
   return (
     <MonopolyCard>
       <MonopolyCardContent className="p-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           <div className="space-y-1">
             <p className="text-2xl font-bold text-foreground">
               {stats.totalPool}
@@ -36,12 +36,6 @@ export function MarketStats({ stats }: MarketStatsProps) {
             </p>
             <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
               Días Restantes
-            </p>
-          </div>
-          <div className="space-y-1">
-            <p className="text-2xl font-bold text-chart-5">{stats.volume24h}</p>
-            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
-              Vol. 24h
             </p>
           </div>
         </div>
