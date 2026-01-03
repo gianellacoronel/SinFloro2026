@@ -58,10 +58,7 @@ export default function RootLayout({
           <div className="min-h-screen bg-background andean-pattern pb-28 md:pb-8">
             <Header />
 
-            <ConvexClientProvider>
-              <WalletCookieSync />
-              {children}
-            </ConvexClientProvider>
+            <ConvexClientProvider>{children}</ConvexClientProvider>
             <MobileNav />
           </div>
           <Analytics />

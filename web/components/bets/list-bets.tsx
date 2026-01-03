@@ -11,9 +11,7 @@ import {
 import { BetTicket, Bet, BetStatus } from "./bet-ticket";
 import { EmptyComponent } from "../custom/empty-component";
 import { TicketMinus, WalletCards } from "lucide-react";
-import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
 import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
-import { Button } from "../ui/button";
 import { MonopolyButton } from "../custom/monopoly-button";
 
 interface ListBetsProps {
