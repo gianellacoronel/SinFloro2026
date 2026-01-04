@@ -4,13 +4,6 @@ import { HeroBanner } from "@/components/market/hero-banner";
 import { MarketStats } from "@/components/market/market-stats";
 import { ListCandidates } from "@/components/market/list-candidates";
 
-const marketStats = {
-  totalPool: "255,800",
-  bettors: "1,247",
-  daysRemaining: "89",
-  volume24h: "+12.5%",
-};
-
 export const metadata: Metadata = {
   other: {
     "base:app_id": "69420bb6d77c069a945bdf82",
@@ -33,8 +26,6 @@ export default function Home() {
       </div>
 
       <ListCandidates />
-
-      <MarketStats stats={marketStats} />
     </main>
   );
 }

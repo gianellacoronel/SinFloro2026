@@ -2,6 +2,14 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
 export const getBets = query({
+  handler: async (ctx) => {
+    const bets = await ctx.db.query("bets").collect();
+
+    return bets;
+  },
+});
+
+export const getBetsByWalletAddress = query({
   args: { walletAddress: v.string() },
   handler: async (ctx, args) => {
     const bets = await ctx.db

@@ -27,7 +27,7 @@ export async function ListBets() {
       />
     );
 
-  const bets = await fetchQuery(api.bets.getBets, {
+  const bets = await fetchQuery(api.bets.getBetsByWalletAddress, {
     walletAddress: address.value ?? "0x",
   });
 
