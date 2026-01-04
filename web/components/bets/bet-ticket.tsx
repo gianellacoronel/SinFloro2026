@@ -1,6 +1,8 @@
 import { Clock, LucideIcon, Ticket, Trophy, XCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { calculatePotentialPayout, cn } from "@/lib/utils";
 import { MonopolyBadge } from "../custom/monopoly-badge";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
 
 export type BetStatus = "open" | "won" | "lost";
 
@@ -37,9 +39,24 @@ const statusConfig: Record<
   },
 };
 
-export function BetTicket({ bet }: { bet: Bet }) {
+export async function BetTicket({ bet }: { bet: Bet }) {
+  const candidates = await fetchQuery(api.candidates.getCandidates);
   const status = statusConfig[bet.status];
   const StatusIcon = status.icon;
+
+  const globalTotalPool = candidates
+    .reduce((acc, curr) => acc + parseFloat(curr.totalPool || "0"), 0)
+    .toString();
+
+  const candidateData = candidates.find(
+    (c) => c.contractId === bet.contractCandidateId,
+  );
+
+  const { payout } = calculatePotentialPayout(
+    bet.amount.toString(),
+    candidateData?.totalPool || bet.amount.toString(),
+    globalTotalPool,
+  );
 
   return (
     <div className="bg-card border-4 border-border shadow-[4px_4px_0px_0px] shadow-border overflow-hidden active:shadow-[2px_2px_0px_0px] active:translate-x-0.5 active:translate-y-0.5 transition-all">
@@ -75,9 +92,7 @@ export function BetTicket({ bet }: { bet: Bet }) {
             <p className="text-[10px] font-bold uppercase text-accent-foreground/70">
               Pago potencial
             </p>
-            <p className="font-bold text-accent-foreground">
-              {bet.potentialPayout} INTI
-            </p>
+            <p className="font-bold text-accent-foreground">{payout} INTI</p>
           </div>
         </div>
 
