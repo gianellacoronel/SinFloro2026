@@ -19,6 +19,7 @@ export async function ListCandidates() {
             odds={candidate.currentOdds}
             partyColorClass={candidate.color}
             probability={0.0}
+            totalCandidatePool={candidate.totalPool}
           />
         );
       })}

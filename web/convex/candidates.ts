@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const getCandidates = query({
   handler: async (ctx) => {
@@ -16,5 +16,12 @@ export const getCandidateById = query({
       .filter((q) => q.eq(q.field("_id"), args.id))
       .first();
     return candidate;
+  },
+});
+
+export const updateTotalPoolById = mutation({
+  args: { id: v.id("candidates"), totalPool: v.string() },
+  handler: async (ctx, args) => {
+    await ctx.db.patch("candidates", args.id, { totalPool: args.totalPool });
   },
 });

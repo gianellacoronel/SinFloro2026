@@ -22,6 +22,7 @@ import {
   SIN_FLORO_ADDRESS,
 } from "@/lib/constants/contracts";
 import { useEffect, useState } from "react";
+import { updateTotalPoolById } from "@/convex/candidates";
 
 interface CandidateCardProps {
   id: string;
@@ -32,6 +33,7 @@ interface CandidateCardProps {
   odds: number;
   probability: number;
   imageQuery: string;
+  totalCandidatePool: string;
 }
 
 export function CandidateCard({
@@ -43,6 +45,7 @@ export function CandidateCard({
   odds,
   probability,
   imageQuery,
+  totalCandidatePool,
 }: CandidateCardProps) {
   const { address } = useAccount();
   const { data: balance, isSuccess: IsBalanceSuccess } = useBalance({
@@ -59,6 +62,7 @@ export function CandidateCard({
   } | null>(null);
 
   const createBet = useMutation(api.bets.createBet);
+  const updateTotalPoolById = useMutation(api.candidates.updateTotalPoolById);
 
   useEffect(() => {
     if (isSuccess && hash && pendingBet) {
@@ -66,6 +70,11 @@ export function CandidateCard({
         walletAddress: address || "",
         candidateId: id as Id<"candidates">,
         amount: pendingBet.amount,
+      });
+
+      updateTotalPoolById({
+        id: id as Id<"candidates">,
+        totalPool: totalCandidatePool + pendingBet.amount,
       });
 
       void toast.success("Apuesta realizada con éxito");
