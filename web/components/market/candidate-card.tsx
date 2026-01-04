@@ -22,7 +22,7 @@ import {
   SIN_FLORO_ADDRESS,
 } from "@/lib/constants/contracts";
 import { useEffect, useState } from "react";
-import { updateTotalPoolById } from "@/convex/candidates";
+import { MarketState } from "@/lib/constants/market-state";
 
 interface CandidateCardProps {
   id: string;
@@ -63,6 +63,11 @@ export function CandidateCard({
 
   const createBet = useMutation(api.bets.createBet);
   const updateTotalPoolById = useMutation(api.candidates.updateTotalPoolById);
+  const { data: currentMarketState } = useReadContract({
+    address: SIN_FLORO_ADDRESS,
+    abi: SIN_FLORO_ABI,
+    functionName: "currentState",
+  });
 
   useEffect(() => {
     if (isSuccess && hash && pendingBet) {
@@ -162,9 +167,23 @@ export function CandidateCard({
           currentOdds={odds}
           onConfirmBet={handleBet}
         >
-          <MonopolyButton className="w-full" monopolySize="lg">
-            Apostar
-          </MonopolyButton>
+          {currentMarketState === MarketState.OPEN ? (
+            <MonopolyButton className="w-full" monopolySize="lg">
+              Apostar
+            </MonopolyButton>
+          ) : currentMarketState === MarketState.CLOSED ? (
+            <MonopolyButton className="w-full" monopolySize="lg" disabled>
+              Apuesta cerrada
+            </MonopolyButton>
+          ) : currentMarketState === MarketState.RESOLVED ? (
+            <MonopolyButton className="w-full" monopolySize="lg" disabled>
+              Resultado anunciado
+            </MonopolyButton>
+          ) : (
+            <MonopolyButton className="w-full" monopolySize="lg" disabled>
+              No disponible
+            </MonopolyButton>
+          )}
         </BettingDrawer>
       </div>
     </div>
