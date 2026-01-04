@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { MonopolyCard, MonopolyCardContent } from "../custom/monopoly-card";
 
 interface MarketStatsProps {
@@ -9,7 +10,14 @@ interface MarketStatsProps {
   };
 }
 
-export function MarketStats({ stats }: MarketStatsProps) {
+export async function MarketStats({ stats }: MarketStatsProps) {
+  const cookieStore = await cookies();
+  const address = cookieStore.get("user_wallet_address");
+
+  if (!address || address.value === "") {
+    return null;
+  }
+
   return (
     <MonopolyCard>
       <MonopolyCardContent className="p-4">
