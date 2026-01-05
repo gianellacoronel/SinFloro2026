@@ -38,7 +38,7 @@ export function DrawerButton({
       <div className="md:hidden">
         <Drawer>
           <DrawerTrigger>
-            <Button>{text}</Button>
+            {text}
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
