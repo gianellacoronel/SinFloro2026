@@ -2,16 +2,15 @@
 
 import {
   useAccount,
-  useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
 import { useEffect, useState } from "react";
 import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
 import { Button } from "../ui/button";
-import { base, baseSepolia } from "viem/chains";
-import { toast } from "sonner";
+import { base } from "viem/chains";
 import { Input } from "../ui/input";
+import { DrawerButton } from "./drawer-button";
 
 export function AdminButtons() {
   const { address, chain } = useAccount();
@@ -73,19 +72,18 @@ export function AdminButtons() {
   }
   return (
     <div className="flex flex-col gap-2">
-      <Button
-        onClick={handleAddCandidate}
-        disabled={isWalletLoading || isConfirming}
-      >
-        Agregar candidato
-      </Button>
-
-      <Button
-        onClick={handleCloseVoting}
-        disabled={isWalletLoading || isConfirming}
-      >
-        Cerrar votaciones
-      </Button>
+      <DrawerButton
+        handleClick={handleAddCandidate}
+        isWalletLoading={isWalletLoading}
+        isConfirming={isConfirmed}
+        text="Agregar candidato"
+      />
+      <DrawerButton
+        handleClick={handleCloseVoting}
+        isWalletLoading={isWalletLoading}
+        isConfirming={isConfirmed}
+        text="Cerrar votaciones"
+      />
 
       <div className="flex gap-2">
         <Input
