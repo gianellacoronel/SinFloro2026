@@ -23,7 +23,7 @@ export default function ProfilePage() {
       <ProfileInformation />
       
       <div className="py-8">
-        <h2 className="text-xl font-bold mb-6 text-center uppercase">Election Countdown</h2>
+        <h2 className="text-xl font-bold mb-6 text-center uppercase">Tiempo restante para las elecciones generales 2026 🇵🇪</h2>
         <CountDown targetDate={new Date("2026-04-12T00:00:00")} />
       </div>
     </main>
