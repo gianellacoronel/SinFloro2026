@@ -37,13 +37,12 @@ export function DrawerButton({
     <>
       <div className="md:hidden">
         <Drawer>
-          <DrawerTrigger>{text}</DrawerTrigger>
+          <DrawerTrigger>
+            <Button>{text}</Button>
+          </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-              <DrawerDescription>
-                This action cannot be undone.
-              </DrawerDescription>
+              <DrawerTitle>¿Estás segura que quieres {text}?</DrawerTitle>
             </DrawerHeader>
             <DrawerFooter>
               <Button
