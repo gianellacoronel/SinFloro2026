@@ -1,5 +1,5 @@
 export const SIN_FLORO_ADDRESS =
-  "0x1ed576f1cdbcd52f9084e4a2fc32c181cf43aae3" as `0x${string}`;
+  "0x3ac658e9c0fea7d4e278118f345bd73afcf5a2f2" as `0x${string}`;
 export const SIN_FLORO_ABI = [
   {
     inputs: [
@@ -226,7 +226,7 @@ export const SIN_FLORO_ABI = [
 ] as const;
 
 export const INTITOKEN_ADDRESS =
-  "0xaeeac513e25fca014b9c70e68be80341bb3027d9" as `0x${string}`;
+  "0x2e73c2b35728979f479bbd956b858678dc9a1cc7" as `0x${string}`;
 export const INTITOKEN_ABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
