@@ -31,6 +31,11 @@ export default defineSchema({
       "contractCandidateId",
     ]),
 
+  bettors: defineTable({
+    walletAddress: v.string(),
+    wereTokensClaimed: v.boolean(),
+  }).index("by_wallet", ["walletAddress"]),
+
   users: defineTable({
     walletAddress: v.string(),
     nickname: v.optional(v.string()),

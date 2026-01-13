@@ -9,6 +9,7 @@
  */
 
 import type * as bets from "../bets.js";
+import type * as bettors from "../bettors.js";
 import type * as candidates from "../candidates.js";
 import type * as files from "../files.js";
 
@@ -20,6 +21,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   bets: typeof bets;
+  bettors: typeof bettors;
   candidates: typeof candidates;
   files: typeof files;
 }>;
