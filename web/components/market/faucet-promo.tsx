@@ -16,15 +16,28 @@ import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import { encodeFunctionData } from "viem";
 import { base } from "viem/chains";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export function FaucetPromo() {
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const { sendCalls, isPending, isSuccess } = useSendCalls();
+
+  const bettor = useQuery(api.bettors.getBettorByWalletAddress, {
+    walletAddress: address || "",
+  });
+  const createBettor = useMutation(api.bettors.createBettor);
 
   async function handleClaim() {
     try {
       if (!isConnected) {
         toast.error("Por favor, conecta tu cuenta");
+        return;
+      }
+      if (bettor && bettor.wereTokensClaimed) {
+        toast.info(
+          "Ya reclamaste Intis, disfruta de apostar en la aplicación.",
+        );
         return;
       }
 
@@ -53,6 +66,8 @@ export function FaucetPromo() {
         ],
         chainId: base.id,
       });
+
+      createBettor({ walletAddress: address || "" });
     } catch (error: any) {
       void toast.error(error.message);
     }
@@ -64,7 +79,7 @@ export function FaucetPromo() {
         <div className="flex items-center gap-4">
           <div className="flex-1 min-w-0">
             <h3 className="text-sm font-bold uppercase tracking-wide text-accent-foreground">
-              Faucet de Prueba
+              Generador de Intis
             </h3>
             <p className="text-xs text-accent-foreground/70">
               Obtén Intis gratis para apostar

@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const createBettor = mutation({
   args: {
@@ -8,8 +8,22 @@ export const createBettor = mutation({
   handler: async (ctx, args) => {
     const bettorId = await ctx.db.insert("bettors", {
       walletAddress: args.walletAddress,
-      wereTokensClaimed: false,
+      wereTokensClaimed: true,
     });
     return bettorId;
+  },
+});
+
+export const getBettorByWalletAddress = query({
+  args: {
+    walletAddress: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const bettor = await ctx.db
+      .query("bettors")
+      .withIndex("by_wallet", (q) => q.eq("walletAddress", args.walletAddress))
+      .first();
+
+    return bettor;
   },
 });
