@@ -6,27 +6,40 @@ import {
 } from "@/components/custom/monopoly-card";
 import { Coins } from "lucide-react";
 import { MonopolyButton } from "../custom/monopoly-button";
-import { useAccount, useSendCalls } from "wagmi";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import {
   INTITOKEN_ABI,
   INTITOKEN_ADDRESS,
-  SIN_FLORO_ADDRESS,
 } from "@/lib/constants/contracts";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
-import { encodeFunctionData } from "viem";
-import { base } from "viem/chains";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useEffect } from "react";
 
 export function FaucetPromo() {
   const { address, isConnected } = useAccount();
-  const { sendCalls, isPending, isSuccess } = useSendCalls();
+  const { writeContract, data: hash, isPending: isWriting } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
 
   const bettor = useQuery(api.bettors.getBettorByWalletAddress, {
     walletAddress: address || "",
   });
   const createBettor = useMutation(api.bettors.createBettor);
+
+  useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Intis reclamados con éxito");
+      createBettor({ walletAddress: address || "" });
+    }
+  }, [isConfirmed, createBettor, address]);
 
   async function handleClaim() {
     try {
@@ -41,33 +54,12 @@ export function FaucetPromo() {
         return;
       }
 
-      const callFaucet = encodeFunctionData({
+      writeContract({
         abi: INTITOKEN_ABI,
+        address: INTITOKEN_ADDRESS,
         functionName: "faucet",
         args: [],
       });
-
-      const callApprove = encodeFunctionData({
-        abi: INTITOKEN_ABI,
-        functionName: "approve",
-        args: [SIN_FLORO_ADDRESS, BigInt(1000 * 10 ** 18)],
-      });
-
-      sendCalls({
-        calls: [
-          {
-            to: INTITOKEN_ADDRESS,
-            data: callFaucet,
-          },
-          {
-            to: INTITOKEN_ADDRESS,
-            data: callApprove,
-          },
-        ],
-        chainId: base.id,
-      });
-
-      createBettor({ walletAddress: address || "" });
     } catch (error: any) {
       void toast.error(error.message);
     }
@@ -89,10 +81,10 @@ export function FaucetPromo() {
             variant="secondary"
             monopolySize="sm"
             className="shrink-0"
-            disabled={isPending}
+            disabled={isWriting || isConfirming}
             onClick={handleClaim}
           >
-            {isPending ? (
+            {isWriting || isConfirming ? (
               <Spinner className="size-6 text-primary" />
             ) : (
               <div className="flex items-center gap-2">
@@ -101,7 +93,6 @@ export function FaucetPromo() {
               </div>
             )}
           </MonopolyButton>
-          {isSuccess && void toast.success("Intis reclamados con éxito")}
         </div>
       </MonopolyCardContent>
     </MonopolyCard>
