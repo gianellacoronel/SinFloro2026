@@ -21,7 +21,7 @@ import { api } from "@/convex/_generated/api";
 
 export function FaucetPromo() {
   const { address, isConnected } = useAccount();
-  const { sendCalls, isPending, isSuccess, isError } = useSendCalls();
+  const { sendCalls, isPending, isSuccess } = useSendCalls();
 
   const bettor = useQuery(api.bettors.getBettorByWalletAddress, {
     walletAddress: address || "",
@@ -67,7 +67,7 @@ export function FaucetPromo() {
         chainId: baseSepolia.id,
       });
 
-      if (isError) {
+      if (!isSuccess) {
         toast.error("Error al reclamar Intis");
         return;
       }
