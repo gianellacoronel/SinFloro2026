@@ -8,6 +8,7 @@ import {
 import { MonopolyButton } from "../custom/monopoly-button";
 import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
 import { Bet } from "./bet-ticket";
+import { baseSepolia } from "viem/chains";
 
 export function ContractClaimButton({ bets }: { bets: Bet[] }) {
   const { data: hash, writeContract, isPending } = useWriteContract();
@@ -19,6 +20,7 @@ export function ContractClaimButton({ bets }: { bets: Bet[] }) {
     address: SIN_FLORO_ADDRESS,
     abi: SIN_FLORO_ABI,
     functionName: "winnerCandidateId",
+    chainId: baseSepolia.id,
   });
 
   const winningBet = bets.find(
@@ -30,6 +32,7 @@ export function ContractClaimButton({ bets }: { bets: Bet[] }) {
       address: SIN_FLORO_ADDRESS,
       abi: SIN_FLORO_ABI,
       functionName: "claimPrize",
+      chainId: baseSepolia.id,
     });
   };
 

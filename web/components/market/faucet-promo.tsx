@@ -15,7 +15,7 @@ import {
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import { encodeFunctionData } from "viem";
-import { base, baseSepolia } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 

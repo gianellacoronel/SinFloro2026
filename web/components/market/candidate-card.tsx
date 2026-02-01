@@ -23,6 +23,7 @@ import {
 } from "@/lib/constants/contracts";
 import { useEffect, useState } from "react";
 import { MarketState } from "@/lib/constants/market-state";
+import { baseSepolia } from "viem/chains";
 
 interface CandidateCardProps {
   id: string;
@@ -67,6 +68,7 @@ export function CandidateCard({
     address: SIN_FLORO_ADDRESS,
     abi: SIN_FLORO_ABI,
     functionName: "currentState",
+    chainId: baseSepolia.id,
   });
 
   useEffect(() => {
@@ -93,6 +95,7 @@ export function CandidateCard({
         void toast.error(
           "INTIs insuficientes en tu cuenta. Puedes reclamar más para poder apostar.",
         );
+        return;
       }
       setPendingBet({
         candidateContractId: contractId,
@@ -103,6 +106,7 @@ export function CandidateCard({
         address: SIN_FLORO_ADDRESS,
         abi: SIN_FLORO_ABI,
         functionName: "placeBet",
+        chainId: baseSepolia.id,
         args: [BigInt(contractId), amountInWei],
       });
     } catch (error) {
@@ -114,6 +118,7 @@ export function CandidateCard({
     abi: SIN_FLORO_ABI,
     address: SIN_FLORO_ADDRESS,
     functionName: "getCandidatePool",
+    chainId: baseSepolia.id,
     args: [BigInt(contractId)],
   });
 
