@@ -30,9 +30,6 @@ export function ContractClaimButton({ bets }: { bets: Bet[] }) {
     chainId: baseSepolia.id,
   });
 
-  console.log("winningCandidateId", winningCandidateId);
-  console.log("currentMarketState", currentMarketState);
-
   const winningBet = bets.find(
     (bet) => bet.contractCandidateId === Number(winningCandidateId),
   );

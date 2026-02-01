@@ -51,7 +51,7 @@ export function AdminButtons() {
   };
 
   const handleResolveVoting = (winnerId: number) => {
-    console.log("id winner: ", winnerId);
+    // console.log("id winner: ", winnerId);
     writeContract({
       address: SIN_FLORO_ADDRESS,
       abi: SIN_FLORO_ABI,

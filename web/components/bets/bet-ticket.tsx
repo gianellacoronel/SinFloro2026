@@ -66,7 +66,11 @@ export async function BetTicket({ bet }: { bet: Bet }) {
           <Ticket className="w-4 h-4 text-muted-foreground" />
         </div>
         <span className="text-xs font-bold text-muted-foreground">
-          {new Date(bet._creationTime).toLocaleString("es-PE")}
+          {new Date(bet._creationTime).toLocaleString("es-PE", {
+            timeZone: "America/Lima",
+            dateStyle: "short",
+            timeStyle: "short",
+          })}
         </span>
       </div>
 
