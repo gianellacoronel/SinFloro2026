@@ -67,11 +67,6 @@ export function FaucetPromo() {
         chainId: baseSepolia.id,
       });
 
-      if (!isSuccess) {
-        toast.error("Error al reclamar Intis");
-        return;
-      }
-
       createBettor({ walletAddress: address || "" });
     } catch (error: any) {
       void toast.error(error.message);
