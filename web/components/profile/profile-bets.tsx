@@ -92,17 +92,27 @@ export function ProfileBets() {
           </TableHeader>
           <TableBody>
             {bets.map((bet) => {
-              const status = statusConfig[bet.status as BetStatus] || statusConfig.open;
+              const status =
+                statusConfig[bet.status as BetStatus] || statusConfig.open;
               const StatusIcon = status.icon;
 
               const candidateData = candidates.find(
-                (c) => c.contractId === bet.contractCandidateId
+                (c) => c.contractId === bet.contractCandidateId,
+              );
+
+              console.log(
+                "bet.amount.toString()",
+                bet.amount.toString(),
+                "candidateData?.totalPool || bet.amount.toString()",
+                candidateData?.totalPool || bet.amount.toString(),
+                "globalTotalPool",
+                globalTotalPool,
               );
 
               const { payout } = calculatePotentialPayout(
                 bet.amount.toString(),
                 candidateData?.totalPool || bet.amount.toString(),
-                globalTotalPool
+                globalTotalPool,
               );
 
               return (
@@ -121,13 +131,15 @@ export function ProfileBets() {
                     </div>
                   </TableCell>
                   <TableCell className="text-right py-4">
-                    <span className="font-mono font-bold text-sm">
+                    <span className="font-bold text-sm">
                       {bet.amount}{" "}
-                      <span className="text-[10px] text-muted-foreground">INTI</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        INTI
+                      </span>
                     </span>
                   </TableCell>
                   <TableCell className="text-right py-4">
-                    <span className="font-mono font-bold text-sm text-primary">
+                    <span className="font-bold text-sm text-primary">
                       {payout}{" "}
                       <span className="text-[10px] text-primary/70">INTI</span>
                     </span>
@@ -135,7 +147,10 @@ export function ProfileBets() {
                   <TableCell className="text-center py-4">
                     <div className="flex justify-center">
                       <MonopolyBadge
-                        className={cn("h-6 px-3 text-[10px] font-black", status.bgClass)}
+                        className={cn(
+                          "h-6 px-3 text-[10px] font-black",
+                          status.bgClass,
+                        )}
                       >
                         <StatusIcon className="w-3 h-3 mr-1" />
                         {status.label}
