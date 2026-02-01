@@ -85,9 +85,6 @@ export function ProfileBets() {
               <TableHead className="font-black uppercase text-[10px] tracking-wider py-4 text-right">
                 Premio Est.
               </TableHead>
-              <TableHead className="font-black uppercase text-[10px] tracking-wider py-4 text-center">
-                Estado
-              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -143,19 +140,6 @@ export function ProfileBets() {
                       {payout}{" "}
                       <span className="text-[10px] text-primary/70">INTI</span>
                     </span>
-                  </TableCell>
-                  <TableCell className="text-center py-4">
-                    <div className="flex justify-center">
-                      <MonopolyBadge
-                        className={cn(
-                          "h-6 px-3 text-[10px] font-black",
-                          status.bgClass,
-                        )}
-                      >
-                        <StatusIcon className="w-3 h-3 mr-1" />
-                        {status.label}
-                      </MonopolyBadge>
-                    </div>
                   </TableCell>
                 </TableRow>
               );
