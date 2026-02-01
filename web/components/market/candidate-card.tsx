@@ -81,7 +81,9 @@ export function CandidateCard({
 
       updateTotalPoolById({
         id: id as Id<"candidates">,
-        totalPool: totalCandidatePool + pendingBet.amount,
+        totalPool: (
+          parseInt(totalCandidatePool) + pendingBet.amount
+        ).toString(),
       });
 
       void toast.success("Apuesta realizada con éxito");
