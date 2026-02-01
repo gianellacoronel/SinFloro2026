@@ -1,5 +1,5 @@
 export const SIN_FLORO_ADDRESS =
-  "0x12c9318B990186114F7E24218e4610001E43B1b7" as `0x${string}`;
+  "0x27BD6789E7c99B666D4b5dCeC877055E76072202" as `0x${string}`;
 export const SIN_FLORO_ABI = [
   {
     inputs: [
