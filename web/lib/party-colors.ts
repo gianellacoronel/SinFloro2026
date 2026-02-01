@@ -50,8 +50,8 @@ export const partyColors = [
   "bg-ucd",
   "bg-av",
   "bg-pl",
+  "bg-pudp",
 
-  // Text colors (just in case they are needed later)
   "text-ap",
   "text-fp",
   "text-pte",
