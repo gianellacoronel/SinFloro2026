@@ -23,7 +23,15 @@ export function ContractClaimButton({ bets }: { bets: Bet[] }) {
     chainId: baseSepolia.id,
   });
 
-  console.log(winningCandidateId);
+  const { data: currentMarketState } = useReadContract({
+    address: SIN_FLORO_ADDRESS,
+    abi: SIN_FLORO_ABI,
+    functionName: "currentState",
+    chainId: baseSepolia.id,
+  });
+
+  console.log("winningCandidateId", winningCandidateId);
+  console.log("currentMarketState", currentMarketState);
 
   const winningBet = bets.find(
     (bet) => bet.contractCandidateId === Number(winningCandidateId),
@@ -39,6 +47,7 @@ export function ContractClaimButton({ bets }: { bets: Bet[] }) {
   };
 
   return (
+    currentMarketState === 2 &&
     winningBet && (
       <MonopolyButton onClick={handleClaimPrize} disabled={isPending}>
         ¡Ganaste! Reclama tus ganancias
