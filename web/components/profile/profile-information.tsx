@@ -61,7 +61,7 @@ export function ProfileInformation() {
 
       <BalanceCard />
 
-      <AdminButtons />
+      {/*<AdminButtons />*/}
     </div>
   );
 }
