@@ -70,6 +70,7 @@
     --color-pup: var(--chart-pup);
     --color-ucd: var(--chart-ucd);
     --color-av: var(--chart-av);
+    --color-pl: var(--chart-pl);
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
@@ -150,6 +151,7 @@
     --chart-pup: oklch(0.5898 0.2109 27.3);
     --chart-ucd: oklch(0.4617 0.1637 28.05);
     --chart-av: oklch(0.5757 0.1135 136.04);
+    --chart-pl: oklch(0.5884 0.241462 29.2339);
     /****/
     --radius: 0.5rem;
     --sidebar: oklch(0.95 0.01 85);
