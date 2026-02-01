@@ -77,6 +77,7 @@ export function CandidateCard({
         walletAddress: address || "",
         candidateId: id as Id<"candidates">,
         amount: pendingBet.amount,
+        contractCandidateId: pendingBet.candidateContractId,
       });
 
       updateTotalPoolById({

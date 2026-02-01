@@ -50,12 +50,12 @@ export const getABetForWinningCandidate = query({
     return bet;
   },
 });
-
 export const createBet = mutation({
   args: {
     walletAddress: v.string(),
     candidateId: v.id("candidates"),
     amount: v.number(),
+    contractCandidateId: v.number(),
   },
   handler: async (ctx, args) => {
     const betId = await ctx.db.insert("bets", {
@@ -65,7 +65,7 @@ export const createBet = mutation({
       odds: 0,
       potentialPayout: 0,
       status: "open",
-      contractCandidateId: 0,
+      contractCandidateId: args.contractCandidateId,
       tokenSymbol: "INTI",
       txHash: "",
     });

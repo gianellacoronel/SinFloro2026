@@ -52,10 +52,13 @@ export async function BetTicket({ bet }: { bet: Bet }) {
     (c) => c.contractId === bet.contractCandidateId,
   );
 
+  // Fallback for candidate data if not found in current pool
+  const candidateTotalPool = candidateData?.totalPool || bet.amount.toString();
+
   const { payout } = calculatePotentialPayout(
     bet.amount.toString(),
-    candidateData?.totalPool || bet.amount.toString(),
-    globalTotalPool,
+    candidateTotalPool,
+    globalTotalPool === "0" ? bet.amount.toString() : globalTotalPool,
   );
 
   return (

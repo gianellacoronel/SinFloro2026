@@ -97,19 +97,14 @@ export function ProfileBets() {
                 (c) => c.contractId === bet.contractCandidateId,
               );
 
-              console.log(
-                "bet.amount.toString()",
-                bet.amount.toString(),
-                "candidateData?.totalPool || bet.amount.toString()",
-                candidateData?.totalPool || bet.amount.toString(),
-                "globalTotalPool",
-                globalTotalPool,
-              );
+              // Fallback for candidate data if not found in current pool
+              const candidateTotalPool =
+                candidateData?.totalPool || bet.amount.toString();
 
               const { payout } = calculatePotentialPayout(
                 bet.amount.toString(),
-                candidateData?.totalPool || bet.amount.toString(),
-                globalTotalPool,
+                candidateTotalPool,
+                globalTotalPool === "0" ? bet.amount.toString() : globalTotalPool,
               );
 
               return (
