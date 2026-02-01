@@ -82,7 +82,7 @@ export function FaucetPromo() {
               Generador de Intis
             </h3>
             <p className="text-xs text-accent-foreground/70">
-              Obtén Intis gratis para apostar
+              Obtén Intis para apostar
             </p>
           </div>
           <MonopolyButton
