@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { WrongNetworkModal } from "@/components/layout/wrong-network-modal";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import ClientMiniApp from "./client-miniapp";
@@ -60,6 +61,7 @@ export default function RootLayout({
 
             <ConvexClientProvider>{children}</ConvexClientProvider>
             <MobileNav />
+            <WrongNetworkModal />
           </div>
           <Analytics />
           <Toaster />
