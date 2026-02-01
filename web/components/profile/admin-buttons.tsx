@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { SIN_FLORO_ABI, SIN_FLORO_ADDRESS } from "@/lib/constants/contracts";
 import { Button } from "../ui/button";
-import { base } from "viem/chains";
+import { base, baseSepolia } from "viem/chains";
 import { Input } from "../ui/input";
 import { DrawerButton } from "./drawer-button";
 
@@ -33,7 +33,7 @@ export function AdminButtons() {
         address: SIN_FLORO_ADDRESS,
         abi: SIN_FLORO_ABI,
         functionName: "addCandidate",
-        chainId: base.id,
+        chainId: baseSepolia.id,
         args: [],
       });
     } catch (error) {
@@ -46,7 +46,7 @@ export function AdminButtons() {
       address: SIN_FLORO_ADDRESS,
       abi: SIN_FLORO_ABI,
       functionName: "closeVoting",
-      chainId: base.id,
+      chainId: baseSepolia.id,
     });
   };
 
@@ -56,7 +56,7 @@ export function AdminButtons() {
       address: SIN_FLORO_ADDRESS,
       abi: SIN_FLORO_ABI,
       functionName: "resolveMarket",
-      chainId: base.id,
+      chainId: baseSepolia.id,
       args: [BigInt(winnerId)],
     });
   };

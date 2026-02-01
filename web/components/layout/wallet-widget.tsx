@@ -15,7 +15,7 @@ import {
 } from "@coinbase/onchainkit/wallet";
 import { Avatar } from "../ui/avatar";
 import { useAccount, useSwitchChain } from "wagmi";
-import { base } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 import { updateWalletCookie } from "@/app/actions/wallet";
 import { useEffect } from "react";
 
@@ -31,14 +31,12 @@ export function WalletWidget() {
     }
   }, [address, isConnected]);
 
-
-
   return (
     <Wallet>
       <ConnectWallet
         onConnect={() => {
-          if (chain?.id !== base.id) {
-            switchChain({ chainId: base.id });
+          if (chain?.id !== baseSepolia.id) {
+            switchChain({ chainId: baseSepolia.id });
           }
         }}
         disconnectedLabel="Conéctate ahora"

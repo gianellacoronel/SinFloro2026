@@ -9,7 +9,7 @@ import { coinbaseWallet, metaMask } from "wagmi/connectors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const wagmiConfig = createConfig({
-  chains: [base, baseSepolia],
+  chains: [baseSepolia],
   connectors: [
     coinbaseWallet({
       appName: "Sin Floro 2026",
@@ -18,7 +18,6 @@ const wagmiConfig = createConfig({
   ],
   ssr: true,
   transports: {
-    [base.id]: http(),
     [baseSepolia.id]: http(),
   },
 });
