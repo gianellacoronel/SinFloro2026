@@ -93,7 +93,7 @@ export function CandidateCard({
       const amountInWei = parseUnits(amount.toString(), 18);
       if (IsBalanceSuccess && balance.value - amountInWei < 0) {
         void toast.error(
-          "INTIs insuficientes en tu cuenta. Puedes reclamar más para poder apostar.",
+          "INTIs insuficientes en tu cuenta. Reclámalos para poder apostar.",
         );
         return;
       }
