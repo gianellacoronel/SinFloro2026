@@ -26,7 +26,7 @@ export async function ListCandidates() {
           );
         })}
       </div>
-      <MarketStats candidatesList={candidates} />
+      <MarketStats initialCandidatesList={candidates} />
     </>
   );
 }

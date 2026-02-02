@@ -93,6 +93,14 @@ export function CandidateCard({
       args: [BigInt(contractId)],
     });
 
+  const liveCandidate = useQuery(api.candidates.getCandidateById, {
+    id: id as Id<"candidates">,
+  });
+
+  const currentPool = liveCandidate?.totalPool ?? (currentCandidatePoolData 
+    ? formatUnits(currentCandidatePoolData as bigint, 18).toString()
+    : totalCandidatePool);
+
   const userAggregation = useMemo(() => {
     if (
       !userBets ||
@@ -220,10 +228,7 @@ export function CandidateCard({
               Pozo Total
             </span>
             <span className="text-sm font-bold text-card-foreground">
-              {currentCandidatePoolData
-                ? formatUnits(currentCandidatePoolData as bigint, 18).toString()
-                : 0}{" "}
-              INTI
+              {currentPool} INTI
             </span>
           </div>
         </div>
