@@ -73,3 +73,16 @@ export const createBet = mutation({
     return betId;
   },
 });
+
+export const getBetsByCandidate = query({
+  args: { walletAddress: v.string(), candidateId: v.id("candidates") },
+  handler: async (ctx, args) => {
+    const bets = await ctx.db
+      .query("bets")
+      .withIndex("by_wallet", (q) => q.eq("walletAddress", args.walletAddress))
+      .filter((q) => q.eq(q.field("candidateId"), args.candidateId))
+      .collect();
+
+    return bets;
+  },
+});

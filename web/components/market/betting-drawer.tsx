@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, TrendingUp, Wallet } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -109,7 +109,7 @@ export function BettingDrawer({
             </div>
 
             <div className="mt-8 space-y-4">
-              {/*<div className="bg-muted/50 p-4 rounded-lg border border-border/50 space-y-3">
+              <div className="bg-muted/50 p-4 rounded-lg border-2 border-dashed border-border space-y-3">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground flex items-center gap-2">
                     <TrendingUp className="w-4 h-4" /> Cuota Actual
@@ -120,13 +120,16 @@ export function BettingDrawer({
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground flex items-center gap-2">
-                    <Wallet className="w-4 h-4" /> Retorno Potencial
+                    <Wallet className="w-4 h-4" /> Retorno Adicional
                   </span>
-                  <span className="font-bold text-green-500">
-                    +{potentialPayout}
+                  <span className="font-bold text-successful">
+                    +{potentialPayout} INTI
                   </span>
                 </div>
-              </div>*/}
+                <p className="text-[10px] text-center text-muted-foreground italic border-t border-border pt-2">
+                  * Este monto se sumará a tus apuestas actuales en este candidato.
+                </p>
+              </div>
 
               <div className="hidden">
                 <Label htmlFor="bet-amount" className="sr-only">

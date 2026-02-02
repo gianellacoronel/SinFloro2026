@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MonopolyButton } from "../custom/monopoly-button";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
   useAccount,
@@ -21,8 +21,9 @@ import {
   SIN_FLORO_ABI,
   SIN_FLORO_ADDRESS,
 } from "@/lib/constants/contracts";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { MarketState } from "@/lib/constants/market-state";
+import { calculatePotentialPayout } from "@/lib/utils";
 import { baseSepolia } from "viem/chains";
 
 interface CandidateCardProps {
@@ -70,6 +71,48 @@ export function CandidateCard({
     functionName: "currentState",
     chainId: baseSepolia.id,
   });
+
+  const userBets = useQuery(api.bets.getBetsByCandidate, {
+    walletAddress: address || "",
+    candidateId: id as Id<"candidates">,
+  });
+
+  const { data: globalPoolData } = useReadContract({
+    address: SIN_FLORO_ADDRESS,
+    abi: SIN_FLORO_ABI,
+    functionName: "totalPool",
+    chainId: baseSepolia.id,
+  });
+
+  const { data: currentCandidatePoolData } = useReadContract({
+    abi: SIN_FLORO_ABI,
+    address: SIN_FLORO_ADDRESS,
+    functionName: "getCandidatePool",
+    chainId: baseSepolia.id,
+    args: [BigInt(contractId)],
+  });
+
+  const userAggregation = useMemo(() => {
+    if (!userBets || userBets.length === 0 || !globalPoolData || !currentCandidatePoolData) {
+      return null;
+    }
+
+    const totalAmount = userBets.reduce((acc, bet) => acc + bet.amount, 0);
+    const globalPool = formatUnits(globalPoolData as bigint, 18);
+    const candidatePool = formatUnits(currentCandidatePoolData as bigint, 18);
+
+    const { payout } = calculatePotentialPayout(
+      totalAmount.toString(),
+      candidatePool,
+      globalPool
+    );
+
+    return {
+      totalAmount,
+      totalPayout: payout,
+      count: userBets.length,
+    };
+  }, [userBets, globalPoolData, currentCandidatePoolData]);
 
   useEffect(() => {
     if (isSuccess && hash && pendingBet) {
@@ -169,6 +212,27 @@ export function CandidateCard({
             </span>
           </div>
         </div>
+
+        {userAggregation && (
+          <div className="border-4 border-dashed border-primary/30 p-3 space-y-2 bg-primary/5">
+            <div className="flex justify-between items-center border-b-2 border-primary/20 pb-2">
+              <span className="text-[10px] font-black uppercase text-primary">
+                Tus Apuestas ({userAggregation.count})
+              </span>
+              <span className="text-xs font-bold text-primary">
+                {userAggregation.totalAmount} INTI
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] font-black uppercase text-muted-foreground">
+                Pago Potencial Total
+              </span>
+              <span className="text-sm font-black text-successful">
+                {userAggregation.totalPayout} INTI
+              </span>
+            </div>
+          </div>
+        )}
 
         <BettingDrawer
           candidateName={name}
