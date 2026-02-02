@@ -15,6 +15,7 @@ export const getBetsByWalletAddress = query({
     const bets = await ctx.db
       .query("bets")
       .withIndex("by_wallet", (q) => q.eq("walletAddress", args.walletAddress))
+      .order("desc")
       .collect();
 
     const betsWithCandidates = await Promise.all(
