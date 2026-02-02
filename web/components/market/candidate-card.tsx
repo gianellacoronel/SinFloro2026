@@ -77,20 +77,22 @@ export function CandidateCard({
     candidateId: id as Id<"candidates">,
   });
 
-  const { data: globalPoolData } = useReadContract({
+  const { data: globalPoolData, refetch: refetchGlobalPool } = useReadContract({
     address: SIN_FLORO_ADDRESS,
     abi: SIN_FLORO_ABI,
     functionName: "totalPool",
     chainId: baseSepolia.id,
   });
 
-  const { data: currentCandidatePoolData } = useReadContract({
-    abi: SIN_FLORO_ABI,
-    address: SIN_FLORO_ADDRESS,
-    functionName: "getCandidatePool",
-    chainId: baseSepolia.id,
-    args: [BigInt(contractId)],
-  });
+  const { data: currentCandidatePoolData, refetch: refetchCandidatePool } =
+    useReadContract({
+      abi: SIN_FLORO_ABI,
+      address: SIN_FLORO_ADDRESS,
+      functionName: "getCandidatePool",
+      chainId: baseSepolia.id,
+      args: [BigInt(contractId)],
+    });
+
 
   const userAggregation = useMemo(() => {
     if (
@@ -135,9 +137,25 @@ export function CandidateCard({
         ).toString(),
       });
 
+      // Refetch on-chain data to update the UI
+      void refetchGlobalPool();
+      void refetchCandidatePool();
+
       void toast.success("Apuesta realizada con éxito");
     }
-  }, [isSuccess, hash, pendingBet]);
+  }, [
+    isSuccess,
+    hash,
+    pendingBet,
+    refetchGlobalPool,
+    refetchCandidatePool,
+    address,
+    id,
+    totalCandidatePool,
+    createBet,
+    updateTotalPoolById,
+  ]);
+
 
   const handleBet = (amount: number) => {
     try {
@@ -165,13 +183,7 @@ export function CandidateCard({
     }
   };
 
-  const totalPool = useReadContract({
-    abi: SIN_FLORO_ABI,
-    address: SIN_FLORO_ADDRESS,
-    functionName: "getCandidatePool",
-    chainId: baseSepolia.id,
-    args: [BigInt(contractId)],
-  });
+
 
   return (
     <div className="bg-card border-4 border-border shadow-[6px_6px_0px_0px] shadow-border overflow-hidden transition-all active:shadow-[3px_3px_0px_0px] active:translate-x-0.5 active:translate-y-0.5">
@@ -212,7 +224,9 @@ export function CandidateCard({
               Pozo Total
             </span>
             <span className="text-sm font-bold text-card-foreground">
-              {totalPool.data ? formatUnits(totalPool.data, 18).toString() : 0}{" "}
+              {currentCandidatePoolData
+                ? formatUnits(currentCandidatePoolData as bigint, 18).toString()
+                : 0}{" "}
               INTI
             </span>
           </div>
