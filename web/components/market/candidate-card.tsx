@@ -93,7 +93,6 @@ export function CandidateCard({
       args: [BigInt(contractId)],
     });
 
-
   const userAggregation = useMemo(() => {
     if (
       !userBets ||
@@ -133,7 +132,7 @@ export function CandidateCard({
       updateTotalPoolById({
         id: id as Id<"candidates">,
         totalPool: (
-          parseInt(totalCandidatePool) + pendingBet.amount
+          (Number(totalCandidatePool) || 0) + pendingBet.amount
         ).toString(),
       });
 
@@ -155,7 +154,6 @@ export function CandidateCard({
     createBet,
     updateTotalPoolById,
   ]);
-
 
   const handleBet = (amount: number) => {
     try {
@@ -182,8 +180,6 @@ export function CandidateCard({
       console.error("Error al preparar la transacción:", error);
     }
   };
-
-
 
   return (
     <div className="bg-card border-4 border-border shadow-[6px_6px_0px_0px] shadow-border overflow-hidden transition-all active:shadow-[3px_3px_0px_0px] active:translate-x-0.5 active:translate-y-0.5">
