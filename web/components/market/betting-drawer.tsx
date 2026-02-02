@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Minus, Plus, TrendingUp, Wallet } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +14,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useAccount } from "wagmi";
 import { toast } from "sonner";
 
@@ -37,18 +35,6 @@ export function BettingDrawer({
   const { isConnected } = useAccount();
   const [amount, setAmount] = React.useState<number>(10);
   const [isOpen, setIsOpen] = React.useState(false);
-
-  // Calculate potential payout
-  const potentialPayout = (amount * currentOdds).toFixed(2);
-
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    if (!isNaN(value) && value >= 0) {
-      setAmount(value);
-    } else if (e.target.value === "") {
-      setAmount(0);
-    }
-  };
 
   const adjustAmount = (delta: number) => {
     setAmount((prev) => Math.max(0, prev + delta));
@@ -106,43 +92,6 @@ export function BettingDrawer({
                 <Plus className="h-4 w-4" />
                 <span className="sr-only">Increase</span>
               </Button>
-            </div>
-
-            <div className="mt-8 space-y-4">
-              <div className="bg-muted/50 p-4 rounded-lg border-2 border-dashed border-border space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4" /> Cuota Actual
-                  </span>
-                  <span className="font-bold text-foreground">
-                    {currentOdds.toFixed(2)}x
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground flex items-center gap-2">
-                    <Wallet className="w-4 h-4" /> Retorno Adicional
-                  </span>
-                  <span className="font-bold text-successful">
-                    +{potentialPayout} INTI
-                  </span>
-                </div>
-                <p className="text-[10px] text-center text-muted-foreground italic border-t border-border pt-2">
-                  * Este monto se sumará a tus apuestas actuales en este candidato.
-                </p>
-              </div>
-
-              <div className="hidden">
-                <Label htmlFor="bet-amount" className="sr-only">
-                  Monto de apuesta
-                </Label>
-                <Input
-                  id="bet-amount"
-                  type="number"
-                  value={amount}
-                  onChange={handleAmountChange}
-                  className="text-center"
-                />
-              </div>
             </div>
           </div>
 
