@@ -93,7 +93,12 @@ export function CandidateCard({
   });
 
   const userAggregation = useMemo(() => {
-    if (!userBets || userBets.length === 0 || !globalPoolData || !currentCandidatePoolData) {
+    if (
+      !userBets ||
+      userBets.length === 0 ||
+      !globalPoolData ||
+      !currentCandidatePoolData
+    ) {
       return null;
     }
 
@@ -104,7 +109,7 @@ export function CandidateCard({
     const { payout } = calculatePotentialPayout(
       totalAmount.toString(),
       candidatePool,
-      globalPool
+      globalPool,
     );
 
     return {
@@ -213,7 +218,7 @@ export function CandidateCard({
           </div>
         </div>
 
-        {userAggregation && (
+        {/*{userAggregation && (
           <div className="border-4 border-dashed border-primary/30 p-3 space-y-2 bg-primary/5">
             <div className="flex justify-between items-center border-b-2 border-primary/20 pb-2">
               <span className="text-[10px] font-black uppercase text-primary">
@@ -232,7 +237,7 @@ export function CandidateCard({
               </span>
             </div>
           </div>
-        )}
+        )}*/}
 
         <BettingDrawer
           candidateName={name}
