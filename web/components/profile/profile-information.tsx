@@ -33,8 +33,7 @@ export function ProfileInformation() {
 
       <BalanceCard />
 
-      {/* Stats Grid - "Scorecard" style */}
-      <ProfileBets />
+      {/*<ProfileBets />*/}
 
       {/*<AdminButtons />*/}
     </div>
