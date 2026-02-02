@@ -97,9 +97,11 @@ export function CandidateCard({
     id: id as Id<"candidates">,
   });
 
-  const currentPool = liveCandidate?.totalPool ?? (currentCandidatePoolData 
-    ? formatUnits(currentCandidatePoolData as bigint, 18).toString()
-    : totalCandidatePool);
+  const currentPool =
+    liveCandidate?.totalPool ??
+    (currentCandidatePoolData
+      ? formatUnits(currentCandidatePoolData as bigint, 18).toString()
+      : totalCandidatePool);
 
   const userAggregation = useMemo(() => {
     if (
@@ -228,7 +230,7 @@ export function CandidateCard({
               Pozo Total
             </span>
             <span className="text-sm font-bold text-card-foreground">
-              {currentPool} INTI
+              {Number(currentPool) ?? 0} INTI
             </span>
           </div>
         </div>
