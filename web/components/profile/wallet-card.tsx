@@ -47,7 +47,7 @@ export function WalletCard() {
           </div>
           <div className="text-right">
             <span className="text-xs font-bold uppercase tracking-wide border-2 border-black px-2 py-0.5 rounded-full bg-successful text-white">
-              Active
+              Activo
             </span>
           </div>
         </div>
