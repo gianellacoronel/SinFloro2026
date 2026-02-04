@@ -28,10 +28,6 @@ export function FaucetPromo() {
   });
   const createBettor = useMutation(api.bettors.createBettor);
 
-  if (bettor?.wereTokensClaimed) {
-    return null;
-  }
-
   async function handleClaim() {
     try {
       if (!isConnected) {
@@ -71,7 +67,9 @@ export function FaucetPromo() {
         chainId: baseSepolia.id,
       });
 
-      createBettor({ walletAddress: address || "" });
+      if (isSuccess) {
+        createBettor({ walletAddress: address || "" });
+      }
     } catch (error: any) {
       void toast.error(error.message);
     }
