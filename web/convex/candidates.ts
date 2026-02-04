@@ -25,3 +25,11 @@ export const updateTotalPoolById = mutation({
     await ctx.db.patch("candidates", args.id, { totalPool: args.totalPool });
   },
 });
+export const getTopCandidates = query({
+  handler: async (ctx) => {
+    const candidates = await ctx.db.query("candidates").collect();
+    return candidates
+      .sort((a, b) => Number(b.totalPool || 0) - Number(a.totalPool || 0))
+      .slice(0, 10);
+  },
+});

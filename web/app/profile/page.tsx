@@ -9,7 +9,6 @@
 // };
 
 import { ProfileInformation } from "@/components/profile/profile-information";
-import { CountDown } from "@/components/ui/countdown";
 
 export default function ProfilePage() {
   return (
