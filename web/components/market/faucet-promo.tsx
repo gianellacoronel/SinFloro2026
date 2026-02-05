@@ -67,9 +67,7 @@ export function FaucetPromo() {
         chainId: baseSepolia.id,
       });
 
-      if (isSuccess) {
-        createBettor({ walletAddress: address || "" });
-      }
+      createBettor({ walletAddress: address || "" });
     } catch (error: any) {
       void toast.error(error.message);
     }
